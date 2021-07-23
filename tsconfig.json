@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2017",
+      "es2017.object",
+      "es2018.promise",
+      "esnext.asynciterable"
+    ],
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "pretty": true,
+    "rootDir": "./src",
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "es2018"
+  },
+  "exclude": ["node_modules", "dist"]
+}

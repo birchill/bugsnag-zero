@@ -1,0 +1,48 @@
+{
+  "name": "@birchill/bugsnag-zero",
+  "version": "0.1.0",
+  "description": "A lightweight Bugsnag client",
+  "repository": "https://github.com/birchill/bugsnag-zero.git",
+  "author": "Birchill, Inc.",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "pinst --disable && rollup -c",
+    "postinstall": "husky install",
+    "postpublish": "pinst --enable",
+    "release": "standard-version"
+  },
+  "bugs": {
+    "url": "https://github.com/birchill/bugsnag-zero/issues"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "typings": "dist/esm/index.d.ts",
+  "homepage": "https://github.com/birchill/bugsnag-zero#readme",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css}": [
+      "prettier --write"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": true
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^8.2.3",
+    "husky": "^7.0.1",
+    "pinst": "^2.1.6",
+    "prettier": "^2.3.2",
+    "rollup": "^2.53.3",
+    "standard-version": "^9.3.1",
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.5"
+  }
+}
