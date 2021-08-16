@@ -87,7 +87,7 @@ export type BugsnagException = {
   // errorMessage instead.
   message?: string;
   stacktrace: Array<StackFrame>;
-  type?: 'browserjs';
+  type?: 'browserjs' | 'nodejs';
 };
 
 export type StackFrame = {
