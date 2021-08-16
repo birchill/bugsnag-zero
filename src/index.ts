@@ -305,8 +305,12 @@ export {
   ReactPluginResult,
   FallbackComponentProps,
 } from './react';
-export { redactKeys } from './redact-keys';
+export { redactKeys, RedactKeysPluginResult } from './redact-keys';
 
 interface BugsnagStatic {
   getPlugin(id: 'react'): import('./react').ReactPluginResult | undefined;
+  getPlugin(
+    id: 'redactKeys'
+  ): import('./redact-keys').RedactKeysPluginResult | undefined;
+  getPlugin(id: string): unknown;
 }
