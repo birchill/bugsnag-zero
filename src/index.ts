@@ -278,7 +278,7 @@ class BugsnagStatic implements ExtendedClientApi {
 const bugsnagSingleton = new BugsnagStatic();
 
 export default bugsnagSingleton;
-export { Client } from './client';
+export { Client, ExtendedClientApi, Plugin } from './client';
 export { Config } from './config';
 export { fromLegacyConfig, LegacyConfig } from './legacy-config';
 export { BugsnagEvent as Event } from './event';
@@ -295,7 +295,7 @@ export { handledRejectionBreadcrumbs } from './handled-rejection-breadcrumbs';
 export { notifyUnhandledExceptions } from './unhandled-exceptions';
 export { notifyUnhandledRejections } from './unhandled-rejections';
 
-// Other
+// Other plugins
 export { appDuration } from './app-duration';
 export { browserContext } from './browser-context';
 export { deviceOrientation } from './deviceorientation';
