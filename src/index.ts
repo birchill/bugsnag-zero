@@ -141,20 +141,9 @@ class BugsnagStatic implements ExtendedClientApi {
       return;
     }
 
-    let languages: ReadonlyArray<string> = ['n/a'];
-    try {
-      languages = self.navigator.languages;
-    } catch (_) {
-      /* Ignore */
-    }
-
     const event: BugsnagEvent = {
       exceptions,
       breadcrumbs: this.breadcrumbs.length ? this.breadcrumbs : undefined,
-      request: {
-        url: self.location.href,
-      },
-      context: self.location.pathname,
       unhandled: typeof unhandled !== 'boolean' ? false : unhandled,
       severity: severity || 'warning',
       severityReason,
@@ -166,18 +155,8 @@ class BugsnagStatic implements ExtendedClientApi {
           this.config.appType ||
           (typeof window === 'object' ? 'browser' : 'node'),
       },
-      device: {
-        locale: self.navigator.language,
-        userAgent: self.navigator.userAgent,
-        time: new Date().toISOString(),
-      },
-      metaData: {
-        ...metadata,
-        language: {
-          language: self.navigator.language,
-          languages,
-        },
-      },
+      device: { time: new Date().toISOString() },
+      metaData: metadata || {},
     };
 
     // Error callbacks
@@ -318,6 +297,7 @@ export { notifyUnhandledRejections } from './unhandled-rejections';
 
 // Other
 export { appDuration } from './app-duration';
+export { browserContext } from './browser-context';
 export { deviceOrientation } from './deviceorientation';
 export { limitEvents } from './limit-events';
 export {

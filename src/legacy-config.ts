@@ -15,6 +15,7 @@ import { navigationBreadcrumbs } from './navigation-breadcrumbs';
 
 // Other plugins
 import { appDuration } from './app-duration';
+import { browserContext } from './browser-context';
 import { deviceOrientation } from './deviceorientation';
 import { limitEvents } from './limit-events';
 import { redactKeys } from './redact-keys';
@@ -104,7 +105,11 @@ export function fromLegacyConfig(input: LegacyConfig | string): Config {
     plugins.push(errorBreadcrumbs);
   }
 
+  // Other plugins
   plugins.push(appDuration);
+  if (typeof self.navigator !== 'undefined') {
+    plugins.push(browserContext);
+  }
   plugins.push(deviceOrientation);
   plugins.push(limitEvents(legacyConfig.maxEvents || 10));
 

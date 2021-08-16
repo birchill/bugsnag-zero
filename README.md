@@ -47,6 +47,7 @@ needs. For example,
 ```typescript
 import Bugsnag, {
   appDuration,
+  browserContext,
   consoleBreadcrumbs,
   deviceOrientation,
   errorBreadcrumbs,
@@ -63,6 +64,7 @@ import Bugsnag, {
 
 const plugins = [
   appDuration,
+  browserContext,
   deviceOrientation,
   errorBreadcrumbs,
   fetchBreadcrumbs,
