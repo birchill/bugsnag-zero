@@ -1,4 +1,5 @@
 import { BreadcrumbType, BugsnagEvent, User } from './event';
+import { Notifier } from './notifier';
 
 export interface Client {
   // This deviates from the official bugsnag client in that as an alternative
@@ -86,7 +87,12 @@ export type Plugin = {
 };
 
 export type Delivery = {
-  send(params: { payload: string; apiKey: string }): Promise<void>;
+  sendEvent(params: {
+    apiKey: string;
+    events: Array<BugsnagEvent>;
+    notifier: Notifier;
+    payloadVersion: string;
+  }): Promise<void>;
 };
 
 // Internal API for plugins

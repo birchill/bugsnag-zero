@@ -185,35 +185,33 @@ class BugsnagStatic implements ExtendedClientApi {
       url: 'https://github.com/birchill/bugsnag-zero',
     };
 
+    // Copy the event so that if other actions occur while we're sending
+    // (e.g. new breadcrumbs added) the event being sent won't be changed.
+    let eventCopy = JSON.parse(JSON.stringify(event));
+
     let body = JSON.stringify({
       apiKey: this.config.apiKey,
       payloadVersion: '5',
       notifier,
-      events: [event],
+      events: [eventCopy],
     });
 
     // Check the size of the payload
     if (body.length > 10e5) {
-      const minimizedEvent = {
-        ...event,
-        metaData: {
-          notifier: `Payload was ${body.length / 10e5}Mb. Metadata removed.`,
-        },
+      eventCopy.metadata = {
+        notifier: `Payload was ${body.length / 10e5}Mb. Metadata removed.`,
       };
       body = JSON.stringify({
         apiKey: this.config.apiKey,
         payloadVersion: '5',
         notifier,
-        events: [minimizedEvent],
+        events: [eventCopy],
       });
       if (body.length > 10e5) {
         throw new Error('Payload exceeded 1Mb limit');
       }
     }
 
-    // Now that we have serialized the body we can call our post error callbacks
-    // which may update our local breadcrumbs array.
-    //
     // Although it's called "post error" we run these callbacks before we
     // actually send the event over the network since sending is async and if
     // the callback is logging the fact that an error was recorded then we want
@@ -224,7 +222,12 @@ class BugsnagStatic implements ExtendedClientApi {
     }
 
     try {
-      await this.delivery.send({ payload: body, apiKey: this.config.apiKey });
+      await this.delivery.sendEvent({
+        apiKey: this.config.apiKey,
+        payloadVersion: '5',
+        events: [eventCopy],
+        notifier,
+      });
     } catch (e) {
       console.error('Failed to post report to Bugsnag', e);
     }
@@ -274,6 +277,7 @@ export { Client, Delivery, ExtendedClientApi, Plugin } from './client';
 export { Config } from './config';
 export { fromLegacyConfig, LegacyConfig } from './legacy-config';
 export { BugsnagEvent as Event } from './event';
+export { Notifier } from './notifier';
 
 // Breadcrumb loggers
 export { consoleBreadcrumbs } from './console-breadcrumbs';
