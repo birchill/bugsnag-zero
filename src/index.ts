@@ -1,5 +1,6 @@
 import {
   Client,
+  Delivery,
   ExtendedClientApi,
   NotifiableError,
   OnErrorCallback,
@@ -8,12 +9,14 @@ import {
 } from './client';
 import { Config } from './config';
 import { Breadcrumb, BreadcrumbType, BugsnagEvent, User } from './event';
+import { FetchDelivery } from './fetch-delivery';
 import { Notifier } from './notifier';
 import { toException } from './to-exception';
 
 class BugsnagStatic implements ExtendedClientApi {
-  private config: Config | undefined;
   private breadcrumbs: Array<Breadcrumb> = [];
+  private config: Config | undefined;
+  private delivery: Delivery = new FetchDelivery();
   private errorCallbacks: Set<OnErrorCallback> = new Set();
   private postErrorCallbacks: Set<OnPostErrorCallback> = new Set();
   private plugins: Array<{ name: string; plugin: any }> = [];
@@ -220,25 +223,10 @@ class BugsnagStatic implements ExtendedClientApi {
       callback(event);
     }
 
-    const sentAt = new Date().toISOString();
-
     try {
-      fetch('https://notify.bugsnag.com/', {
-        method: 'POST',
-        mode: 'cors',
-        credentials: 'omit',
-        headers: {
-          'Content-Type': 'application/json',
-          'Bugsnag-Api-Key': this.config.apiKey,
-          'Bugsnag-Payload-Version': '5',
-          'Bugsnag-Sent-At': sentAt,
-        },
-        referrerPolicy: 'no-referrer',
-        body,
-      });
+      await this.delivery.send({ payload: body, apiKey: this.config.apiKey });
     } catch (e) {
-      console.error('Failed to post report to Bugsnag');
-      console.log(e);
+      console.error('Failed to post report to Bugsnag', e);
     }
   }
 
@@ -273,12 +261,16 @@ class BugsnagStatic implements ExtendedClientApi {
   getPlugin(name: string): unknown {
     return this.plugins.find((plugin) => plugin.name === name)?.plugin;
   }
+
+  setDelivery(delivery: Delivery) {
+    this.delivery = delivery;
+  }
 }
 
 const bugsnagSingleton = new BugsnagStatic();
 
 export default bugsnagSingleton;
-export { Client, ExtendedClientApi, Plugin } from './client';
+export { Client, Delivery, ExtendedClientApi, Plugin } from './client';
 export { Config } from './config';
 export { fromLegacyConfig, LegacyConfig } from './legacy-config';
 export { BugsnagEvent as Event } from './event';
@@ -306,6 +298,9 @@ export {
   FallbackComponentProps,
 } from './react';
 export { redactKeys, RedactKeysPluginResult } from './redact-keys';
+
+// Delivery plugins
+export { FetchDelivery } from './fetch-delivery';
 
 interface BugsnagStatic {
   getPlugin(id: 'react'): import('./react').ReactPluginResult | undefined;

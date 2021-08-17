@@ -85,6 +85,10 @@ export type Plugin = {
   load(client: ExtendedClientApi): any;
 };
 
+export type Delivery = {
+  send(params: { payload: string; apiKey: string }): Promise<void>;
+};
+
 // Internal API for plugins
 
 export interface ExtendedClientApi extends Client {
