@@ -14,17 +14,24 @@ export const redactKeys = (keys: Array<string>): Plugin => ({
     });
 
     return {
-      redactEvent: (event: BugsnagEvent) => {
-        const copy = JSON.parse(JSON.stringify(event));
-        return redactEventInPlace(copy, keys);
-      },
-      redactObject: <T>(obj: T): T => {
-        const copy = JSON.parse(JSON.stringify(obj));
-        return redactInPlace(copy, keys);
-      },
+      redactEvent: (event: Readonly<BugsnagEvent>) => redactEvent(event, keys),
+      redactObject: <T>(obj: Readonly<T>): T => redactObject(obj, keys),
     };
   },
 });
+
+export function redactEvent(
+  event: Readonly<BugsnagEvent>,
+  keys: Array<string>
+): BugsnagEvent {
+  const copy = JSON.parse(JSON.stringify(event));
+  return redactEventInPlace(copy, keys);
+}
+
+export function redactObject<T>(obj: Readonly<T>, keys: Array<string>): T {
+  const copy = JSON.parse(JSON.stringify(obj));
+  return redactInPlace(copy, keys);
+}
 
 function redactEventInPlace(
   event: BugsnagEvent,

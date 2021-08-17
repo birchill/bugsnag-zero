@@ -303,7 +303,12 @@ export {
   ReactPluginResult,
   FallbackComponentProps,
 } from './react';
-export { redactKeys, RedactKeysPluginResult } from './redact-keys';
+export {
+  redactEvent,
+  redactKeys,
+  RedactKeysPluginResult,
+  redactObject,
+} from './redact-keys';
 
 // Delivery plugins
 export { FetchDelivery } from './fetch-delivery';
