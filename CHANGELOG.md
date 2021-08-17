@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/birchill/bugsnag-zero/compare/v0.4.0...v0.4.1) (2021-08-17)
+
+
+### Features
+
+* Expose redactEvent and redactKeys functions ([8a8c922](https://github.com/birchill/bugsnag-zero/commit/8a8c922eeddf77486eaa5a8202d7ef773259b761))
+
 ## [0.4.0](https://github.com/birchill/bugsnag-zero/compare/v0.3.0...v0.4.0) (2021-08-17)
 
 

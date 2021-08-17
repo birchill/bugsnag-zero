@@ -1,6 +1,6 @@
 {
   "name": "@birchill/bugsnag-zero",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A lightweight Bugsnag client",
   "repository": "https://github.com/birchill/bugsnag-zero.git",
   "author": "Birchill, Inc.",
