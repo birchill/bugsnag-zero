@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.2](https://github.com/birchill/bugsnag-zero/compare/v0.4.1...v0.4.2) (2021-08-17)
+
+
+### Bug Fixes
+
+* Make environment detection work on node ([0e612c7](https://github.com/birchill/bugsnag-zero/commit/0e612c79a76cd82602489f8c8df693e2196c05f0))
+
 ### [0.4.1](https://github.com/birchill/bugsnag-zero/compare/v0.4.0...v0.4.1) (2021-08-17)
 
 
