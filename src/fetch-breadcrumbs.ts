@@ -3,7 +3,7 @@ import { ExtendedClientApi, Plugin } from './client';
 // Unlike the official bugsnag JS client this does NOT cover XHR.
 // Furthermore, it does not provide a way to be cleaned up.
 export const fetchBreadcrumbs: Plugin = {
-  name: 'fetchBreacrumbs',
+  name: 'fetchBreadcrumbs',
   load(client: ExtendedClientApi) {
     if (!('fetch' in self)) {
       return;

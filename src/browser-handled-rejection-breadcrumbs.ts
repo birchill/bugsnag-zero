@@ -1,8 +1,8 @@
 import { ExtendedClientApi, Plugin } from './client';
 import { toException } from './to-exception';
 
-export const handledRejectionBreadcrumbs: Plugin = {
-  name: 'handledRejectionBreadcrumbs',
+export const browserHandledRejectionBreadcrumbs: Plugin = {
+  name: 'browserHandledRejectionBreadcrumbs',
   load(client: ExtendedClientApi) {
     self.addEventListener('rejectionhandled', (evt: PromiseRejectionEvent) => {
       const error = evt.reason;

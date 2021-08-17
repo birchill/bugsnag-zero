@@ -281,12 +281,13 @@ export { errorBreadcrumbs } from './error-breadcrumbs';
 export { fetchBreadcrumbs } from './fetch-breadcrumbs';
 export { interactionBreadcrumbs } from './interaction-breadcrumbs';
 export { navigationBreadcrumbs } from './navigation-breadcrumbs';
-export { handledRejectionBreadcrumbs } from './handled-rejection-breadcrumbs';
+export { browserHandledRejectionBreadcrumbs } from './browser-handled-rejection-breadcrumbs';
 
 // Error notifiers
-export { notifyUnhandledExceptions } from './unhandled-exceptions';
-export { notifyUnhandledRejections } from './unhandled-rejections';
-export { notifyUnhandledRejectionsNode } from './unhandled-rejections-node';
+export { browserNotifyUnhandledExceptions } from './browser-unhandled-exceptions';
+export { browserNotifyUnhandledRejections } from './browser-unhandled-rejections';
+export { nodeNotifyUnhandledRejections } from './node-unhandled-rejections';
+export { nodeNotifyUnhandledExceptions } from './node-unhandled-exceptions';
 
 // Other plugins
 export { appDuration } from './app-duration';

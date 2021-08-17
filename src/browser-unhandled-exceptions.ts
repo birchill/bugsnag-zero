@@ -1,8 +1,8 @@
 import { ExtendedClientApi, Plugin } from './client';
 import { toException } from './to-exception';
 
-export const notifyUnhandledExceptions: Plugin = {
-  name: 'notifyUnhandledExceptions',
+export const browserNotifyUnhandledExceptions: Plugin = {
+  name: 'browserNotifyUnhandledExceptions',
   load(client: ExtendedClientApi) {
     self.addEventListener('error', (evt: ErrorEvent) => {
       const { message, filename: file, lineno, colno, error } = evt;

@@ -3,8 +3,8 @@ import { Config } from './config';
 import { BreadcrumbType } from './event';
 
 // Auto-detect errors
-import { notifyUnhandledExceptions } from './unhandled-exceptions';
-import { notifyUnhandledRejections } from './unhandled-rejections';
+import { browserNotifyUnhandledExceptions } from './browser-unhandled-exceptions';
+import { browserNotifyUnhandledRejections } from './browser-unhandled-rejections';
 
 // Breadcrumb plugins
 import { consoleBreadcrumbs } from './console-breadcrumbs';
@@ -65,14 +65,14 @@ export function fromLegacyConfig(input: LegacyConfig | string): Config {
     autoDetectErrors !== false &&
     enabledErrorTypes?.unhandledExceptions !== false
   ) {
-    plugins.push(notifyUnhandledExceptions);
+    plugins.push(browserNotifyUnhandledExceptions);
   }
 
   if (
     autoDetectErrors !== false &&
     enabledErrorTypes?.unhandledRejections !== false
   ) {
-    plugins.push(notifyUnhandledRejections);
+    plugins.push(browserNotifyUnhandledRejections);
   }
 
   // Breadcrumbs
