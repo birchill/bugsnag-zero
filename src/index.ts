@@ -286,6 +286,7 @@ export { handledRejectionBreadcrumbs } from './handled-rejection-breadcrumbs';
 // Error notifiers
 export { notifyUnhandledExceptions } from './unhandled-exceptions';
 export { notifyUnhandledRejections } from './unhandled-rejections';
+export { notifyUnhandledRejectionsNode } from './unhandled-rejections-node';
 
 // Other plugins
 export { appDuration } from './app-duration';
