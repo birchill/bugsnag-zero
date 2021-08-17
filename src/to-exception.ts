@@ -25,7 +25,7 @@ export function toException(
       errorClass: error.name,
       message: error.message,
       stacktrace: getStacktrace(error),
-      type: 'browserjs',
+      type: self && self.navigator ? 'browserjs' : 'nodejs',
     },
     metadata,
   };
