@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.5](https://github.com/birchill/bugsnag-zero/compare/v0.4.4...v0.4.5) (2021-08-18)
+
+
+### Features
+
+* Pick up metadata from Error objects ([04d81da](https://github.com/birchill/bugsnag-zero/commit/04d81da9f534d787013ac751846df2c68d3dc836))
+
+
+### Bug Fixes
+
+* Rename bugsnag singleton to make autocomplete work better ([109e343](https://github.com/birchill/bugsnag-zero/commit/109e343924d6459d7cfca1e7e198967a66316fce))
+
 ### [0.4.4](https://github.com/birchill/bugsnag-zero/compare/v0.4.3...v0.4.4) (2021-08-18)
 
 
