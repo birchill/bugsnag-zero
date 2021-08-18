@@ -31,6 +31,20 @@ haven't found a need for them yet. Some noteable ones include:
 
 Many of these could be added, if needed, by adding further plugins.
 
+On the other hand, it adds a few other features:
+
+- Post-error callbacks - called after fully preparing the error but just before
+  sending it. This was mostly added as a means of supporting "error" breadcrumbs.
+- A `browserHandledRejectionBreadcrumbs` plugin for logging _handled_ rejections.
+- The ability to substitute in custom delivery providers (e.g. so you can send
+  to an SNS topic).
+- `Bugsnag.notify()` returns a Promise so you can wait on it to ensure delivery
+  was successful.
+- `Bugsnag.notify()` can take `metadata` and `severity` settings as a object
+  rather than you having to provide an on-error callback (see below).
+- `redactKeys` exports its functions so you can re-use them for other logging
+  etc.
+
 So far very little effort has been spent on optimizing the code size of the
 generated code. A little code golf and manual minification could likely reduce
 the bundle size much further still.
@@ -48,16 +62,16 @@ needs. For example,
 import Bugsnag, {
   appDuration,
   browserContext,
+  browserHandledRejectionBreadcrumbs,
+  browserNotifyUnhandledExceptions,
+  browserNotifyUnhandledRejections,
   consoleBreadcrumbs,
   deviceOrientation,
   errorBreadcrumbs,
   fetchBreadcrumbs,
-  handledRejectionBreadcrumbs,
   interactionBreadcrumbs,
   limitEvents,
   navigationBreadcrumbs,
-  notifyUnhandledExceptions,
-  notifyUnhandledRejections,
   ReactPlugin,
   redactKeys,
 } from '@birchill/bugsnag-zero';
@@ -65,15 +79,15 @@ import Bugsnag, {
 const plugins = [
   appDuration,
   browserContext,
+  browserHandledRejectionBreadcrumbs,
+  browserNotifyUnhandledExceptions,
+  browserNotifyUnhandledRejections,
   deviceOrientation,
   errorBreadcrumbs,
   fetchBreadcrumbs,
-  handledRejectionBreadcrumbs,
   interactionBreadcrumbs,
   limitEvents(10),
   navigationBreadcrumbs,
-  notifyUnhandledExceptions,
-  notifyUnhandledRejections,
   ReactPlugin,
   redactKeys(['accessToken', 'password']),
 ];
@@ -139,6 +153,68 @@ const MyBugsnagErrorBoundary = React.useMemo(
 Furthermore, unlike the official bugsnag-js client, we don't allow passing in
 React to the constructor. Instead we always require a call to
 `createErrorBoundary`.
+
+### Usage with Node.js
+
+We don't properly support Node.js at this time. In particular, there's no
+delivery mechanism defined for it. It would be trivial to write, but we haven't
+needed it yet.
+
+That said, there are some plugins that should work with node including the
+`lambdaContext` plugin for logging from AWS Lambda.
+
+At Birchill, we use a custom `Delivery` class to post the events to an SNS topic
+and have that send to Bugsnag since that's faster than having the Lambda wait on
+the Bugsnag server and more flexible too (e.g. you can post your events to Slack
+etc. too as needed).
+
+The setup looks something like:
+
+```typescript
+import Bugsnag, {
+  appDuration,
+  errorBreadcrumbs,
+  lambdaContext,
+  nodeNotifyUnhandledExceptions,
+  nodeNotifyUnhandledRejections,
+  redactKeys,
+} from '@birchill/bugsnag-zero';
+
+Bugsnag.start({
+  apiKey: '<unused>',
+  appType: 'nodejs',
+  plugins: [
+    appDuration,
+    errorBreadcrumbs,
+    lambdaContext(),
+    nodeNotifyUnhandledExceptions,
+    nodeNotifyUnhandledRejections,
+    redactKeys(keysToRedact),
+  ],
+});
+
+Bugsnag.setDelivery({
+  sendEvent: async ({ events }): Promise<void> => {
+    const errorClass = events[0].exceptions[0]?.errorClass || 'Unknown';
+    const context = events[0].context;
+    const subject = `Error: ${errorClass} in ${context}`;
+
+    const publishCommand = new PublishCommand({
+      Subject: subject,
+      TopicArn: errorTopicArn,
+      Message: JSON.stringify(events),
+    });
+
+    await snsClient.send(publishCommand);
+  },
+});
+
+// When a Lambda handler is called, update the lambdaContext plugin:
+
+async function handler(event: Event, context: Context): Promise<void> {
+  Bugsnag.getPlugin('lambdaContext')?.setContext(event, context);
+}
+```
 
 ## Development
 

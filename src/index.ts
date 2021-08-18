@@ -297,6 +297,7 @@ export { nodeNotifyUnhandledExceptions } from './node-unhandled-exceptions';
 export { appDuration } from './app-duration';
 export { browserContext } from './browser-context';
 export { deviceOrientation } from './deviceorientation';
+export { lambdaContext, LambdaContextPlugin } from './lambda-context';
 export { limitEvents } from './limit-events';
 export {
   ReactPlugin,
@@ -318,5 +319,8 @@ interface BugsnagStatic {
   getPlugin(
     id: 'redactKeys'
   ): import('./redact-keys').RedactKeysPluginResult | undefined;
+  getPlugin(
+    id: 'lambdaContext'
+  ): import('./lambda-context').LambdaContextPlugin | undefined;
   getPlugin(id: string): unknown;
 }
