@@ -270,9 +270,9 @@ class BugsnagStatic implements ExtendedClientApi {
   }
 }
 
-const bugsnagSingleton = new BugsnagStatic();
+const Bugsnag = new BugsnagStatic();
 
-export default bugsnagSingleton;
+export default Bugsnag;
 export { Client, Delivery, ExtendedClientApi, Plugin } from './client';
 export { Config } from './config';
 export { fromLegacyConfig, LegacyConfig } from './legacy-config';
