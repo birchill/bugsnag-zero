@@ -1,5 +1,7 @@
 import typescript from '@rollup/plugin-typescript';
 
+const external = ['aws-lambda', 'os', 'ua-parser-js'];
+
 export default [
   {
     input: 'src/index.ts',
@@ -9,7 +11,7 @@ export default [
       format: 'es',
       sourcemap: true,
     },
-    external: [],
+    external,
     plugins: [
       typescript({
         outDir: 'dist/esm',
@@ -24,7 +26,7 @@ export default [
       format: 'cjs',
       sourcemap: true,
     },
-    external: [],
+    external,
     plugins: [
       typescript({
         declaration: false,
