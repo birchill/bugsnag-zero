@@ -181,6 +181,7 @@ import Bugsnag, {
   nodeNotifyUnhandledRejections,
   redactKeys,
 } from '@birchill/bugsnag-zero';
+import { lambdaContext } from '@birchill/bugsnag-zero/lambda-context';
 
 Bugsnag.start({
   apiKey: '<unused>',

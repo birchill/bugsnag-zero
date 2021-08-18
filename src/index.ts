@@ -297,7 +297,6 @@ export { nodeNotifyUnhandledExceptions } from './node-unhandled-exceptions';
 export { appDuration } from './app-duration';
 export { browserContext } from './browser-context';
 export { deviceOrientation } from './deviceorientation';
-export { lambdaContext, LambdaContextPlugin } from './lambda-context';
 export { limitEvents } from './limit-events';
 export {
   ReactPlugin,
