@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.4](https://github.com/birchill/bugsnag-zero/compare/v0.4.3...v0.4.4) (2021-08-18)
+
+
+### Bug Fixes
+
+* Mark all external modules as such ([6cb82a0](https://github.com/birchill/bugsnag-zero/commit/6cb82a04da2188e3ff494dae93c8bf8eef09358c))
+
 ### [0.4.3](https://github.com/birchill/bugsnag-zero/compare/v0.4.2...v0.4.3) (2021-08-18)
 
 
