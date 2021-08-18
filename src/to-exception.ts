@@ -20,6 +20,14 @@ export function toException(
     };
   }
 
+  // Merge any metadata defined on the object itself
+  if (
+    typeof (error as any).metadata !== 'undefined' &&
+    isObject((error as any).metadata)
+  ) {
+    metadata = { ...metadata, [error.name]: (error as any).metadata };
+  }
+
   return {
     exception: {
       errorClass: error.name,

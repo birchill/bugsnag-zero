@@ -33,15 +33,17 @@ Many of these could be added, if needed, by adding further plugins.
 
 On the other hand, it adds a few other features:
 
-- Post-error callbacks - called after fully preparing the error but just before
-  sending it. This was mostly added as a means of supporting "error" breadcrumbs.
-- A `browserHandledRejectionBreadcrumbs` plugin for logging _handled_ rejections.
 - The ability to substitute in custom delivery providers (e.g. so you can send
   to an SNS topic).
 - `Bugsnag.notify()` returns a Promise so you can wait on it to ensure delivery
   was successful.
 - `Bugsnag.notify()` can take `metadata` and `severity` settings as a object
   rather than you having to provide an on-error callback (see below).
+- If an `Error` object has a `metadata` field, it will be merged into the
+  reported error's metadata.
+- A `browserHandledRejectionBreadcrumbs` plugin for logging _handled_ rejections.
+- Post-error callbacks - called after fully preparing the error but just before
+  sending it. This was mostly added as a means of supporting "error" breadcrumbs.
 - `redactKeys` exports its functions so you can re-use them for other logging
   etc.
 
