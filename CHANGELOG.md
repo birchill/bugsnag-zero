@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.7](https://github.com/birchill/bugsnag-zero/compare/v0.4.6...v0.4.7) (2021-08-19)
+
+
+### Bug Fixes
+
+* Export lambda-context* entry points at root ([83d92ed](https://github.com/birchill/bugsnag-zero/commit/83d92ed9c9de1a5b9eca409d41a50360f6df7b77))
+
 ### [0.4.6](https://github.com/birchill/bugsnag-zero/compare/v0.4.5...v0.4.6) (2021-08-18)
 
 
