@@ -43,6 +43,7 @@ export default [
     plugins: [
       typescript({
         outDir: 'dist/esm',
+        declaration: false,
       }),
     ],
   },

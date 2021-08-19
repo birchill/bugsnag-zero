@@ -16,7 +16,8 @@
     "url": "https://github.com/birchill/bugsnag-zero/issues"
   },
   "files": [
-    "dist"
+    "dist/**",
+    "lambda-context.*"
   ],
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
