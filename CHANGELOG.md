@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.9](https://github.com/birchill/bugsnag-zero/compare/v0.4.8...v0.4.9) (2021-08-19)
+
+
+### Bug Fixes
+
+* Try to make the CJS export work somehow ([229a182](https://github.com/birchill/bugsnag-zero/commit/229a1828c70348b95989eee8cb0e268dd9649c10))
+
 ### [0.4.8](https://github.com/birchill/bugsnag-zero/compare/v0.4.6...v0.4.8) (2021-08-19)
 
 
