@@ -19,15 +19,15 @@ export default [
   {
     input: 'src/index.ts',
     output: {
+      dir: 'dist/cjs',
       exports: 'named', // Disable warning for default imports
-      file: 'dist/cjs/index.js',
       format: 'cjs',
       sourcemap: true,
     },
     external: [],
     plugins: [
       typescript({
-        declaration: false,
+        outDir: 'dist/cjs',
       }),
     ],
   },
