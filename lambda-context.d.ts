@@ -1,1 +1,1 @@
-export * from './dist/esm/lambda-context.js';
+export * from './dist/esm/lambda-context';
