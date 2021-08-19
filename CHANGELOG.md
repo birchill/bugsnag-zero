@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.10](https://github.com/birchill/bugsnag-zero/compare/v0.4.9...v0.4.10) (2021-08-19)
+
+
+### Bug Fixes
+
+* Try again to make everyone happy ([54819d1](https://github.com/birchill/bugsnag-zero/commit/54819d17c2018afa02dade0c2c050d462d3f3bfd))
+
 ### [0.4.9](https://github.com/birchill/bugsnag-zero/compare/v0.4.8...v0.4.9) (2021-08-19)
 
 
