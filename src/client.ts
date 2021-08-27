@@ -5,8 +5,8 @@ export interface Client {
   // This deviates from the official bugsnag client in that as an alternative
   // to supplying an an onError function to modify the error, we allow setting
   // various options directly through an options argument.
-  notify(
-    error: NotifiableError,
+  notify<ErrorType = unknown>(
+    error: ErrorType,
     options?:
       | {
           metadata?: Record<string, any>;
@@ -68,6 +68,9 @@ export interface Client {
   */
 }
 
+// This is no longer used (we allow "unknown" to be passed to notify) but is
+// provided for clients who want to type-check what they are passing to notify
+// to ensure it will be reported as expected.
 export type NotifiableError =
   | Error
   | { errorClass: string; errorMessage: string }

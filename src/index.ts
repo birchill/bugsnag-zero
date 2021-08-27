@@ -2,7 +2,6 @@ import {
   Client,
   Delivery,
   ExtendedClientApi,
-  NotifiableError,
   OnErrorCallback,
   OnPostErrorCallback,
   PartialEvent,
@@ -52,8 +51,8 @@ class BugsnagStatic implements ExtendedClientApi {
     return this;
   }
 
-  notify(
-    error: NotifiableError,
+  notify<ErrorType = unknown>(
+    error: ErrorType,
     options:
       | {
           metadata?: Record<string, any>;
@@ -273,7 +272,13 @@ class BugsnagStatic implements ExtendedClientApi {
 const Bugsnag = new BugsnagStatic();
 
 export default Bugsnag;
-export { Client, Delivery, ExtendedClientApi, Plugin } from './client';
+export {
+  Client,
+  Delivery,
+  ExtendedClientApi,
+  NotifiableError,
+  Plugin,
+} from './client';
 export { Config } from './config';
 export { fromLegacyConfig, LegacyConfig } from './legacy-config';
 export { BugsnagEvent as Event } from './event';
