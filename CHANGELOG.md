@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.11](https://github.com/birchill/bugsnag-zero/compare/v0.4.10...v0.4.11) (2021-08-27)
+
+
+### Features
+
+* **TypeScript:** Allow errors with type unknown to be passed to notify() ([88622b1](https://github.com/birchill/bugsnag-zero/commit/88622b1281800f7e0016a3eca82492c61a1b0a3f))
+
 ### [0.4.10](https://github.com/birchill/bugsnag-zero/compare/v0.4.9...v0.4.10) (2021-08-19)
 
 
