@@ -37,18 +37,18 @@
     "bracketSpacing": true
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^8.2.3",
-    "@types/aws-lambda": "^8.10.82",
-    "@types/node": "^16.6.1",
+    "@rollup/plugin-typescript": "^8.2.5",
+    "@types/aws-lambda": "^8.10.83",
+    "@types/node": "^16.7.2",
     "@types/ua-parser-js": "^0.7.36",
-    "husky": "^7.0.1",
-    "lint-staged": "^11.1.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
     "pinst": "^2.1.6",
     "prettier": "^2.3.2",
-    "rollup": "^2.53.3",
+    "rollup": "^2.56.3",
     "standard-version": "^9.3.1",
-    "tslib": "^2.3.0",
-    "typescript": "^4.3.5"
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.2"
   },
   "dependencies": {
     "aws-lambda": "^1.0.6",

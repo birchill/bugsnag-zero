@@ -31,7 +31,7 @@ export const navigationBreadcrumbs: Plugin = {
     if (self.location) {
       self.addEventListener(
         'hashchange',
-        (event) => {
+        (event: HashChangeEvent) => {
           const metadata = event.oldURL
             ? {
                 from: relativeLocation(event.oldURL),

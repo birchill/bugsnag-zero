@@ -3,8 +3,11 @@ import { ExtendedClientApi, Plugin } from './client';
 export const consoleBreadcrumbs: Plugin = {
   name: 'consoleBreadcrumbs',
   load(client: ExtendedClientApi) {
+    // We need to exclude the 'Console' ctor function because it's in Node's
+    // Console interface but not the DOM one.
+    type nonCtorKeys = Exclude<keyof Console, 'Console'>;
     const methodsToHook = (
-      ['log', 'debug', 'info', 'warn', 'error'] as Array<keyof Console>
+      ['log', 'debug', 'info', 'warn', 'error'] as Array<nonCtorKeys>
     ).filter(
       (method) =>
         typeof console !== 'undefined' && typeof console[method] === 'function'
