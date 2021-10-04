@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.12](https://github.com/birchill/bugsnag-zero/compare/v0.4.11...v0.4.12) (2021-10-04)
+
+
+### Features
+
+* **lambdaContext:** try to reconstruct requst URL ([35f3640](https://github.com/birchill/bugsnag-zero/commit/35f36407dd4ec791255a22006fe7918f65740107))
+
 ### [0.4.11](https://github.com/birchill/bugsnag-zero/compare/v0.4.10...v0.4.11) (2021-08-27)
 
 
