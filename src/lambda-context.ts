@@ -83,12 +83,40 @@ export const lambdaContext = (
         }
 
         // URL
-        let url = lambdaEvent?.requestContext?.routeKey;
+        const domain = lambdaEvent?.requestContext?.domainName;
+        const path = lambdaEvent?.rawPath ?? lambdaEvent?.path;
+        const queryString = lambdaEvent?.rawQueryString;
+        let scheme: string | undefined;
+        if (isGwV2Event(lambdaEvent)) {
+          scheme = lambdaEvent.requestContext.http.protocol.startsWith('HTTPS')
+            ? 'https://'
+            : 'http://';
+        } else if (isGwEvent(lambdaEvent)) {
+          if (lambdaEvent.requestContext.messageDirection) {
+            scheme = 'wss://';
+          } else {
+            scheme = lambdaEvent.requestContext.protocol.startsWith('HTTPS')
+              ? 'https://'
+              : 'http://';
+          }
+        }
+        const url =
+          scheme && domain
+            ? `${scheme}${domain}${path || ''}${
+                queryString ? `?${queryString}` : ''
+              }`
+            : lambdaEvent?.requestContext?.routeKey;
 
         // Referer
-        let referer = headers.origin;
+        const referer = headers.origin;
 
-        if (clientIp || Object.keys(headers).length || httpMethod || referer) {
+        if (
+          clientIp ||
+          Object.keys(headers).length ||
+          httpMethod ||
+          url ||
+          referer
+        ) {
           event.request = {
             clientIp,
             headers: Object.keys(headers).length ? headers : undefined,
