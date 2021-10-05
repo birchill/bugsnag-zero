@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.13](https://github.com/birchill/bugsnag-zero/compare/v0.4.12...v0.4.13) (2021-10-05)
+
+
+### Bug Fixes
+
+* Fix scheme detection to assume https:// ([e9302f0](https://github.com/birchill/bugsnag-zero/commit/e9302f0306c5324569c728f68265b8be0b452b37))
+
 ### [0.4.12](https://github.com/birchill/bugsnag-zero/compare/v0.4.11...v0.4.12) (2021-10-04)
 
 
