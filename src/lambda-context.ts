@@ -87,17 +87,16 @@ export const lambdaContext = (
         const path = lambdaEvent?.rawPath ?? lambdaEvent?.path;
         const queryString = lambdaEvent?.rawQueryString;
         let scheme: string | undefined;
+        // I haven't figured out a good way to detect a TLS connection so we
+        // just assume https:// unless it looks like a WebSocket connection
+        // (in which case we assume wss://).
         if (isGwV2Event(lambdaEvent)) {
-          scheme = lambdaEvent.requestContext.http.protocol.startsWith('HTTPS')
-            ? 'https://'
-            : 'http://';
+          scheme = 'https://';
         } else if (isGwEvent(lambdaEvent)) {
           if (lambdaEvent.requestContext.messageDirection) {
             scheme = 'wss://';
           } else {
-            scheme = lambdaEvent.requestContext.protocol.startsWith('HTTPS')
-              ? 'https://'
-              : 'http://';
+            scheme = 'https://';
           }
         }
         const url =
