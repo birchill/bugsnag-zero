@@ -52,6 +52,6 @@
   },
   "dependencies": {
     "aws-lambda": "^1.0.6",
-    "ua-parser-js": "^0.7.28"
+    "ua-parser-js": "^1.0.2"
   }
 }
