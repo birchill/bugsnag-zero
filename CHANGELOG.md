@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.14](https://github.com/birchill/bugsnag-zero/compare/v0.4.13...v0.4.14) (2021-11-25)
+
+
+### Features
+
+* add user agent string parsing to browser-context ([2da25ca](https://github.com/birchill/bugsnag-zero/commit/2da25ca40f4e6d25afb8c5d9352d180758b5d4f9))
+
 ### [0.4.13](https://github.com/birchill/bugsnag-zero/compare/v0.4.12...v0.4.13) (2021-10-05)
 
 
