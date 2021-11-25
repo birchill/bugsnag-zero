@@ -219,6 +219,85 @@ async function handler(event: Event, context: Context): Promise<void> {
 }
 ```
 
+### Using a custom user agent string parser
+
+Bugsnag's [v5 reporting API](https://bugsnagerrorreportingapi.docs.apiary.io/#reference/0/notify/send-error-reports)
+requires passing in the browser name, browser version, OS name etc. explicitly.
+In other words, it requires you to parse the user agent string on the client.
+
+By comparison, the v4 API that the official client uses just passes the user
+agent string to the API and lets the server parse it.
+
+Adding a full-blown user agent string parser would bloat this library a lot so
+we provide a very simple one that covers the basic cases. For example, it
+doesn't handle things like bots etc. since hopefully they're probably not going
+to be triggering your error reporting (and if they are, the raw user agent
+string is still included so you can detect that).
+
+However, perhaps your app already has a user agent string parser included and
+you want to re-use that? You can do that by using the
+`browserContextWithUaParser` plugin in place of the `browserContext` plugin and
+supplying a function that takes a string and returns an object of the following
+shape:
+
+```typescript
+type UserAgentInfo = {
+  browserName?: string;
+  browserVersion?: string;
+  osName?: string;
+  osVersion?: string;
+  manufacturer?: string;
+  model?: string;
+  modelNumber?: string;
+};
+```
+
+For an unrecognized user agent string, you would just return an empty object
+(`{}`).
+
+For example:
+
+```typescript
+import Bugsnag, { browserContextWithUaParser } from '@birchill/bugsnag-zero';
+
+const myUaParser = new Parser();
+const parseUaString = (uaString: string) => {
+  const result = myUaParser.parse(uaString);
+  return result
+    ? {
+        browserName: result.browser,
+        browserVersion: `${result.major}.${result.minor}`,
+      }
+    : {};
+};
+
+Bugsnag.start({
+  apiKey: '<unused>',
+  appType: 'nodejs',
+  plugins: [browserContextWithUaParser(parseUaString)],
+});
+```
+
+This also gives you full control on how browsers are grouped together (e.g. do
+you want Chrome on iOS to be treated the same as real Chrome? Do you want an
+EdgeHTML version of Edge to be grouped together with Chromium Edge?)
+
+Similarly, if you have no need for user agent string parsing and want to use
+`browserContext` without the user agent string parsing bloating your code, the
+following should hopefully mean it gets tree-shaken out:
+
+```typescript
+import Bugsnag, { browserContextWithUaParser } from '@birchill/bugsnag-zero';
+
+Bugsnag.start({
+  apiKey: '<unused>',
+  appType: 'nodejs',
+  plugins: [browserContextWithUaParser(() => {})],
+});
+```
+
+Note that none of this is tested at all so let me know if it doesn't work.
+
 ## Development
 
 ### Building

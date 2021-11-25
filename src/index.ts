@@ -300,7 +300,12 @@ export { nodeNotifyUnhandledExceptions } from './node-unhandled-exceptions';
 
 // Other plugins
 export { appDuration } from './app-duration';
-export { browserContext } from './browser-context';
+export {
+  browserContext,
+  browserContextWithUaParser,
+  UserAgentParserFn,
+  UserAgentInfo,
+} from './browser-context';
 export { deviceOrientation } from './deviceorientation';
 export { limitEvents } from './limit-events';
 export {
