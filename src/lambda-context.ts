@@ -8,6 +8,7 @@ import UAParser from 'ua-parser-js';
 
 import { ExtendedClientApi, Plugin } from './client';
 import { BugsnagEvent } from './event';
+import { toException } from './to-exception';
 
 export interface LambdaContextPlugin {
   setContext(event: Record<string, any>, context: Context): void;
@@ -19,6 +20,7 @@ export const lambdaContext = (
 ): Plugin => {
   let lambdaEvent = initialEvent;
   let contextObject = initialContext;
+  let executionTimeout: ReturnType<typeof setTimeout> | undefined;
 
   return {
     name: 'lambdaContext',
@@ -197,6 +199,39 @@ export const lambdaContext = (
         setContext(event: Record<string, any>, context: Context) {
           lambdaEvent = event;
           contextObject = context;
+
+          if (executionTimeout) {
+            clearTimeout(executionTimeout);
+            executionTimeout = undefined;
+          }
+
+          const remainingTimeMs = context.getRemainingTimeInMillis();
+          const justBeforeEnd = remainingTimeMs - 300;
+          if (justBeforeEnd > 0) {
+            executionTimeout = setTimeout(() => {
+              client.notifyEvent({
+                exceptions: [
+                  toException(
+                    {
+                      name: 'LambdaTimeoutApproaching',
+                      message: 'Less that 300ms before the Lambda timeout',
+                    },
+                    'notify'
+                  ).exception,
+                ],
+                unhandled: true,
+                severity: 'warning',
+                severityReason: { type: 'log' },
+                metadata: {
+                  timeout: {
+                    'Initial remaining time (ms)': remainingTimeMs,
+                    'Current remaining time (ms)':
+                      context.getRemainingTimeInMillis(),
+                  },
+                },
+              });
+            }, justBeforeEnd);
+          }
         },
       };
     },
