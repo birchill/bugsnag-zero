@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.15](https://github.com/birchill/bugsnag-zero/compare/v0.4.14...v0.4.15) (2022-06-16)
+
+
+### Features
+
+* generate an error if a Lambda is about to timeout ([ba0441b](https://github.com/birchill/bugsnag-zero/commit/ba0441bf92becf46f9c8040bb40d2a8d93c99ffe))
+
 ### [0.4.14](https://github.com/birchill/bugsnag-zero/compare/v0.4.13...v0.4.14) (2021-11-25)
 
 
