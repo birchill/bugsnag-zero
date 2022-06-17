@@ -11,7 +11,15 @@ import { BugsnagEvent } from './event';
 import { toException } from './to-exception';
 
 export interface LambdaContextPlugin {
-  setContext(event: Record<string, any>, context: Context): void;
+  setContext(
+    event: Record<string, any>,
+    context: Context
+  ): {
+    timeoutWrapper: <T>(
+      handler: () => T,
+      options?: { timeBeforeEndMs?: number }
+    ) => Promise<Awaited<T>>;
+  };
 }
 
 export const lambdaContext = (
@@ -20,7 +28,6 @@ export const lambdaContext = (
 ): Plugin => {
   let lambdaEvent = initialEvent;
   let contextObject = initialContext;
-  let executionTimeout: ReturnType<typeof setTimeout> | undefined;
 
   return {
     name: 'lambdaContext',
@@ -200,38 +207,60 @@ export const lambdaContext = (
           lambdaEvent = event;
           contextObject = context;
 
-          if (executionTimeout) {
-            clearTimeout(executionTimeout);
-            executionTimeout = undefined;
-          }
+          const timeoutWrapper = async <T>(
+            handler: () => T,
+            { timeBeforeEndMs = 300 }: { timeBeforeEndMs?: number } = {}
+          ): Promise<Awaited<T>> => {
+            if (timeBeforeEndMs < 0) {
+              throw new Error('timeBeforeEndMs must be a positive number');
+            }
 
-          const remainingTimeMs = context.getRemainingTimeInMillis();
-          const justBeforeEnd = remainingTimeMs - 300;
-          if (justBeforeEnd > 0) {
-            executionTimeout = setTimeout(() => {
-              client.notifyEvent({
-                exceptions: [
-                  toException(
-                    {
-                      name: 'LambdaTimeoutApproaching',
-                      message: 'Less that 300ms before the Lambda timeout',
+            let executionTimeout: ReturnType<typeof setTimeout> | undefined;
+            const remainingTimeMs = context.getRemainingTimeInMillis();
+            const justBeforeEnd = remainingTimeMs - timeBeforeEndMs;
+            if (justBeforeEnd >= 0) {
+              executionTimeout = setTimeout(() => {
+                client.notifyEvent({
+                  exceptions: [
+                    toException(
+                      {
+                        name: 'LambdaTimeoutApproaching',
+                        message: `Less that ${timeBeforeEndMs}ms before the Lambda timeout`,
+                      },
+                      'notify'
+                    ).exception,
+                  ],
+                  unhandled: true,
+                  severity: 'warning',
+                  severityReason: { type: 'log' },
+                  metadata: {
+                    timeout: {
+                      'Initial remaining time (ms)': remainingTimeMs,
+                      'Current remaining time (ms)':
+                        context.getRemainingTimeInMillis(),
                     },
-                    'notify'
-                  ).exception,
-                ],
-                unhandled: true,
-                severity: 'warning',
-                severityReason: { type: 'log' },
-                metadata: {
-                  timeout: {
-                    'Initial remaining time (ms)': remainingTimeMs,
-                    'Current remaining time (ms)':
-                      context.getRemainingTimeInMillis(),
                   },
-                },
-              });
-            }, justBeforeEnd);
-          }
+                });
+              }, justBeforeEnd);
+            } else {
+              console.warn(
+                `Asked to warn about Lambda timeout ${timeBeforeEndMs}ms before the end, but there are only ${remainingTimeMs}ms remaining`
+              );
+            }
+
+            try {
+              const handlerResult = handler();
+              return isPromiseLike(handlerResult)
+                ? await handlerResult
+                : handlerResult;
+            } finally {
+              if (executionTimeout !== undefined) {
+                clearTimeout(executionTimeout);
+              }
+            }
+          };
+
+          return { timeoutWrapper };
         },
       };
     },
@@ -248,4 +277,12 @@ function isGwEvent(
   event: Record<string, any> | undefined
 ): event is APIGatewayProxyEvent {
   return !!event && !!(event as APIGatewayProxyEvent).requestContext?.identity;
+}
+
+function isPromiseLike(value: unknown): value is PromiseLike<any> {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    typeof (value as any).then === 'function'
+  );
 }
