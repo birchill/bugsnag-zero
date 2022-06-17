@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.16](https://github.com/birchill/bugsnag-zero/compare/v0.4.15...v0.4.16) (2022-06-17)
+
+
+### Features
+
+* add log URL to Lambda context ([5c1d0da](https://github.com/birchill/bugsnag-zero/commit/5c1d0da150ac9ca677b03a83efa6c69150c3ca70))
+
+
+### Bug Fixes
+
+* make the Lambda timeout handling opt-in ([d30e70c](https://github.com/birchill/bugsnag-zero/commit/d30e70cbf9703a685411e3096b990a024f4374fa))
+
 ### [0.4.15](https://github.com/birchill/bugsnag-zero/compare/v0.4.14...v0.4.15) (2022-06-16)
 
 
