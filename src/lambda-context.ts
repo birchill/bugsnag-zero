@@ -191,11 +191,26 @@ export const lambdaContext = (
         }
 
         if (contextObject) {
+          let logUrl: string | undefined;
+          if (process.env.AWS_REGION) {
+            const region = process.env.AWS_REGION;
+            const consoleComponentEncode = (str: string) =>
+              encodeURIComponent(encodeURIComponent(str)).replace(/%/g, '$');
+            const logGroupName = consoleComponentEncode(
+              contextObject.logGroupName
+            );
+            const logStreamName = consoleComponentEncode(
+              contextObject.logStreamName
+            );
+            logUrl = `https://${region}.console.aws.amazon.com/cloudwatch/home?region=${region}#logsV2:log-groups/log-group/${logGroupName}/log-events/${logStreamName}`;
+          }
+
           event.metaData = {
             ...event.metaData,
             Lambda: {
               ...contextObject,
               remainingTimeMs: contextObject.getRemainingTimeInMillis(),
+              logUrl,
             },
           };
           delete event.metaData.Lambda.getRemainingTimeInMillis;
