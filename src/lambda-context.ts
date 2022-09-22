@@ -267,7 +267,9 @@ export const lambdaContext = (
               const handlerResult = handler();
               return isPromiseLike(handlerResult)
                 ? await handlerResult
-                : handlerResult;
+                : // I have no idea why this cast is needed -- seems like
+                  // something changed in the definition of Awaited or PromiseLike
+                  (handlerResult as Awaited<T>);
             } finally {
               if (executionTimeout !== undefined) {
                 clearTimeout(executionTimeout);
