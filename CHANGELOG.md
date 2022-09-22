@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.17](https://github.com/birchill/bugsnag-zero/compare/v0.4.16...v0.4.17) (2022-09-22)
+
+
+### Features
+
+* support custom endpoints ([1f5e690](https://github.com/birchill/bugsnag-zero/commit/1f5e6902fb9bf9075fdf6d7699f4ae6eca42d856))
+
+
+### Bug Fixes
+
+* clone passed-in config object ([8044d25](https://github.com/birchill/bugsnag-zero/commit/8044d25e6dd92eefb974a4bd20d8ca4ca90bb525))
+
 ### [0.4.16](https://github.com/birchill/bugsnag-zero/compare/v0.4.15...v0.4.16) (2022-06-17)
 
 
