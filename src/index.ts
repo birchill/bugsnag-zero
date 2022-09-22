@@ -28,10 +28,7 @@ class BugsnagStatic implements ExtendedClientApi {
       return this;
     }
 
-    this.config =
-      typeof structuredClone === 'function'
-        ? (structuredClone(config) as Config)
-        : { ...config };
+    this.config = config;
 
     let errorCallbacks: Array<OnErrorCallback> | undefined = undefined;
     if (this.config.onError) {
