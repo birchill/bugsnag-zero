@@ -15,7 +15,7 @@ import { toException } from './to-exception';
 class BugsnagStatic implements ExtendedClientApi {
   private breadcrumbs: Array<Breadcrumb> = [];
   private config: Config | undefined;
-  private delivery: Delivery = new FetchDelivery();
+  private delivery: Delivery = new FetchDelivery(this);
   private errorCallbacks: Set<OnErrorCallback> = new Set();
   private postErrorCallbacks: Set<OnPostErrorCallback> = new Set();
   private plugins: Array<{ name: string; plugin: any }> = [];
@@ -49,6 +49,12 @@ class BugsnagStatic implements ExtendedClientApi {
     this.leaveBreadcrumb('Bugsnag loaded', {}, 'state');
 
     return this;
+  }
+
+  get endpoints() {
+    return {
+      notify: this.config?.endpoints?.notify || 'https://notify.bugsnag.com/',
+    };
   }
 
   notify<ErrorType = unknown>(

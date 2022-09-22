@@ -9,7 +9,8 @@ export interface Config {
   // context?: string;
   collectUserIp?: false;
   enabledReleaseStages?: string[] | null;
-  // endpoints?: { notify: string, sessions: string };
+  // We don't support sessions
+  endpoints?: { notify: string };
   generateAnonymousId?: false;
   // maxEvents?: number;
   maxBreadcrumbs?: number;

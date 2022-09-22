@@ -23,7 +23,6 @@ haven't found a need for them yet. Some noteable ones include:
 - Sessions
 - Inline scripts (these days CSP generally makes inline scripts harder to use
   anyway)
-- Custom endpoints
 - Loggers
 - RegExps for redacted keys
 - Callbacks for breadcrumbs

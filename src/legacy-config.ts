@@ -34,7 +34,7 @@ export interface LegacyConfig {
   };
   enabledBreadcrumbTypes?: BreadcrumbType[] | null;
   enabledReleaseStages?: string[] | null;
-  // endpoints?: { notify: string, sessions: string };
+  endpoints?: { notify: string; sessions: string };
   generateAnonymousId?: false;
   // Loggers are not supported
   logger?: null;

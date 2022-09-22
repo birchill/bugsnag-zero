@@ -101,6 +101,7 @@ export type Delivery = {
 // Internal API for plugins
 
 export interface ExtendedClientApi extends Client {
+  readonly endpoints: Readonly<{ notify: string }>;
   notifyEvent(event: PartialEvent): Promise<void>;
 }
 

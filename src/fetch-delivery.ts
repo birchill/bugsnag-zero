@@ -1,8 +1,10 @@
-import { Delivery } from './client';
+import { Delivery, ExtendedClientApi } from './client';
 import { BugsnagEvent } from './event';
 import { Notifier } from './notifier';
 
 export class FetchDelivery implements Delivery {
+  constructor(private client: ExtendedClientApi) {}
+
   async sendEvent({
     apiKey,
     events,
@@ -23,7 +25,7 @@ export class FetchDelivery implements Delivery {
       events,
     });
 
-    await fetch('https://notify.bugsnag.com/', {
+    await fetch(this.client.endpoints.notify, {
       method: 'POST',
       mode: 'cors',
       credentials: 'omit',
