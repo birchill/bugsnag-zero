@@ -33,7 +33,10 @@ export function toException(
       errorClass: error.name,
       message: error.message,
       stacktrace: getStacktrace(error),
-      type: typeof self === 'object' && self.navigator ? 'browserjs' : 'nodejs',
+      type:
+        typeof self === 'object' && (self as Window).navigator
+          ? 'browserjs'
+          : 'nodejs',
     },
     metadata,
   };
