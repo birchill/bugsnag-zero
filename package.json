@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "9.0.1",
-    "@types/aws-lambda": "8.10.107",
+    "@types/aws-lambda": "8.10.108",
     "@types/node": "18.11.0",
     "@types/ua-parser-js": "0.7.36",
     "husky": "8.0.1",
