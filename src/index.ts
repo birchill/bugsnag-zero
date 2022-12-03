@@ -80,12 +80,15 @@ class BugsnagStatic implements ExtendedClientApi {
       }
     }
 
-    return this.notifyEvent({
-      exceptions: [exception],
-      metadata,
-      severity,
-      onError,
-    });
+    return this.notifyEvent(
+      {
+        exceptions: [exception],
+        metadata,
+        severity,
+        onError,
+      },
+      error
+    );
   }
 
   leaveBreadcrumb(
@@ -121,14 +124,17 @@ class BugsnagStatic implements ExtendedClientApi {
     }
   }
 
-  async notifyEvent({
-    exceptions,
-    unhandled,
-    severity,
-    severityReason,
-    metadata,
-    onError,
-  }: PartialEvent): Promise<void> {
+  async notifyEvent(
+    {
+      exceptions,
+      unhandled,
+      severity,
+      severityReason,
+      metadata,
+      onError,
+    }: PartialEvent,
+    originalError: unknown
+  ): Promise<void> {
     if (!this.config) {
       // The official bugsnag client will produce a console eror in this case
       // but that's annoying since often unit tests will exercise code that
@@ -152,6 +158,7 @@ class BugsnagStatic implements ExtendedClientApi {
     const event: BugsnagEvent = {
       exceptions,
       breadcrumbs: this.breadcrumbs.length ? this.breadcrumbs : undefined,
+      originalError,
       unhandled: typeof unhandled !== 'boolean' ? false : unhandled,
       severity: severity || 'warning',
       severityReason,
@@ -192,7 +199,12 @@ class BugsnagStatic implements ExtendedClientApi {
 
     // Copy the event so that if other actions occur while we're sending
     // (e.g. new breadcrumbs added) the event being sent won't be changed.
+    //
+    // We drop the original error first and then restore it because (a) we don't
+    // want to send it, and (b) we don't know if it can be safely serialized.
+    delete (event as any).originalError;
     let eventCopy = JSON.parse(JSON.stringify(event));
+    (event as any).originalError = originalError;
 
     let body = JSON.stringify({
       apiKey: this.config.apiKey,

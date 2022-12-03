@@ -1,5 +1,4 @@
-import { Delivery, ExtendedClientApi } from './client';
-import { BugsnagEvent } from './event';
+import { Delivery, EventForDelivery, ExtendedClientApi } from './client';
 import { Notifier } from './notifier';
 
 export class FetchDelivery implements Delivery {
@@ -12,7 +11,7 @@ export class FetchDelivery implements Delivery {
     payloadVersion,
   }: {
     apiKey: string;
-    events: Array<BugsnagEvent>;
+    events: Array<EventForDelivery>;
     notifier: Notifier;
     payloadVersion: string;
   }): Promise<void> {

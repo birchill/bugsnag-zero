@@ -14,6 +14,7 @@ export type BugsnagEvent = {
   };
   context?: string;
   groupingHash?: string;
+  readonly originalError: unknown;
   unhandled?: boolean;
   severity?: 'error' | 'warning' | 'info' | 'default';
   severityReason?: {

@@ -82,11 +82,16 @@ export type FallbackComponentProps = {
 //
 // ------------------------------------------------------------------------
 
-type CreateElementFunc<P extends Record<string, any>, ComponentType, Element> =
-  (type: ComponentType, props?: P | null, ...children: any) => Element;
+type CreateElementFunc<
+  P extends Record<string, any>,
+  ComponentType,
+  Element
+> = (type: ComponentType, props?: P | null, ...children: any) => Element;
 
-type ClassComponentType<P = Record<string, any>, S = Record<string, any>> =
-  abstract new (...args: any[]) => ClassComponent<P, S>;
+type ClassComponentType<
+  P = Record<string, any>,
+  S = Record<string, any>
+> = abstract new (...args: any[]) => ClassComponent<P, S>;
 
 interface ClassComponent<P = Record<string, any>, S = Record<string, any>> {
   setState: <K extends keyof S>(
@@ -149,16 +154,19 @@ function createClass<
         info.componentStack = formatComponentStack(info.componentStack);
       }
       const { onError } = this.props;
-      client.notifyEvent({
-        exceptions: [exception],
-        unhandled: true,
-        severity: 'error',
-        severityReason: {
-          type: 'unhandledException',
+      client.notifyEvent(
+        {
+          exceptions: [exception],
+          unhandled: true,
+          severity: 'error',
+          severityReason: {
+            type: 'unhandledException',
+          },
+          metadata: { ...metadata, react: info },
+          onError,
         },
-        metadata: { ...metadata, react: info },
-        onError,
-      });
+        error
+      );
       this.setState({ error, info });
     }
 

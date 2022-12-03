@@ -89,10 +89,12 @@ export type Plugin = {
   load(client: ExtendedClientApi): any;
 };
 
+export type EventForDelivery = Omit<BugsnagEvent, 'originalError'>;
+
 export type Delivery = {
   sendEvent(params: {
     apiKey: string;
-    events: Array<BugsnagEvent>;
+    events: Array<EventForDelivery>;
     notifier: Notifier;
     payloadVersion: string;
   }): Promise<void>;
@@ -102,7 +104,7 @@ export type Delivery = {
 
 export interface ExtendedClientApi extends Client {
   readonly endpoints: Readonly<{ notify: string }>;
-  notifyEvent(event: PartialEvent): Promise<void>;
+  notifyEvent(event: PartialEvent, originalError: unknown): Promise<void>;
 }
 
 export type PartialEvent = {

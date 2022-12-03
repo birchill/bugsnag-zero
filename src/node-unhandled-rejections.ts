@@ -7,15 +7,18 @@ export const nodeNotifyUnhandledRejections: Plugin = {
     process.prependListener('unhandledRejection', (reason, promise) => {
       const { exception, metadata } = toException(reason, 'unhandledrejection');
 
-      client.notifyEvent({
-        exceptions: [exception],
-        unhandled: true,
-        severity: 'error',
-        severityReason: {
-          type: 'unhandledPromiseRejection',
+      client.notifyEvent(
+        {
+          exceptions: [exception],
+          unhandled: true,
+          severity: 'error',
+          severityReason: {
+            type: 'unhandledPromiseRejection',
+          },
+          metadata: { ...metadata, promise },
         },
-        metadata: { ...metadata, promise },
-      });
+        reason
+      );
     });
   },
 };

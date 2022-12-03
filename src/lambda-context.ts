@@ -234,28 +234,29 @@ export const lambdaContext = (
             const remainingTimeMs = context.getRemainingTimeInMillis();
             const justBeforeEnd = remainingTimeMs - timeBeforeEndMs;
             if (justBeforeEnd >= 0) {
+              const originalError = new Error(
+                `Less that ${timeBeforeEndMs}ms before the Lambda timeout`
+              );
+              originalError.name = 'LambdaTimeoutApproaching';
               executionTimeout = setTimeout(() => {
-                client.notifyEvent({
-                  exceptions: [
-                    toException(
-                      {
-                        name: 'LambdaTimeoutApproaching',
-                        message: `Less that ${timeBeforeEndMs}ms before the Lambda timeout`,
+                client.notifyEvent(
+                  {
+                    exceptions: [
+                      toException(originalError, 'notify').exception,
+                    ],
+                    unhandled: true,
+                    severity: 'warning',
+                    severityReason: { type: 'log' },
+                    metadata: {
+                      timeout: {
+                        'Initial remaining time (ms)': remainingTimeMs,
+                        'Current remaining time (ms)':
+                          context.getRemainingTimeInMillis(),
                       },
-                      'notify'
-                    ).exception,
-                  ],
-                  unhandled: true,
-                  severity: 'warning',
-                  severityReason: { type: 'log' },
-                  metadata: {
-                    timeout: {
-                      'Initial remaining time (ms)': remainingTimeMs,
-                      'Current remaining time (ms)':
-                        context.getRemainingTimeInMillis(),
                     },
                   },
-                });
+                  originalError
+                );
               }, justBeforeEnd);
             } else {
               console.warn(

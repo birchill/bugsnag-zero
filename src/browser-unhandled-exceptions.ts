@@ -33,15 +33,18 @@ export const browserNotifyUnhandledExceptions: Plugin = {
           firstStackFrame.columnNumber ?? columnNumber;
       }
 
-      client.notifyEvent({
-        exceptions: [exception],
-        unhandled: true,
-        severity: 'error',
-        severityReason: {
-          type: 'unhandledException',
+      client.notifyEvent(
+        {
+          exceptions: [exception],
+          unhandled: true,
+          severity: 'error',
+          severityReason: {
+            type: 'unhandledException',
+          },
+          metadata,
         },
-        metadata,
-      });
+        evt
+      );
     });
   },
 };

@@ -21,15 +21,18 @@ export const browserNotifyUnhandledRejections: Plugin = {
         // I don't understand this. Surely we'll have the same information in
         // our exception object already?
 
-        client.notifyEvent({
-          exceptions: [exception],
-          unhandled: true,
-          severity: 'error',
-          severityReason: {
-            type: 'unhandledPromiseRejection',
+        client.notifyEvent(
+          {
+            exceptions: [exception],
+            unhandled: true,
+            severity: 'error',
+            severityReason: {
+              type: 'unhandledPromiseRejection',
+            },
+            metadata,
           },
-          metadata,
-        });
+          error
+        );
       }
     );
   },
