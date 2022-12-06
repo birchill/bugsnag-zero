@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.1](https://github.com/birchill/bugsnag-zero/compare/v0.5.0...v0.5.1) (2022-12-06)
+
+
+### Bug Fixes
+
+* fix broken CJS setup ([5dd4175](https://github.com/birchill/bugsnag-zero/commit/5dd41750e67c2155f8a8d778199efbf53a0f9d88))
+
 ### [0.5.0](https://github.com/birchill/bugsnag-zero/compare/v0.4.18...v0.5.0) (2022-12-03)
 
 ### Features
