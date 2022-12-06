@@ -19,7 +19,7 @@ export default [
   {
     input: 'src/index.ts',
     output: {
-      dir: 'dist/cjs',
+      file: 'dist/cjs/index.cjs',
       exports: 'named', // Disable warning for default imports
       format: 'cjs',
       sourcemap: true,
@@ -51,7 +51,7 @@ export default [
     input: 'src/lambda-context.ts',
     output: {
       exports: 'named', // Disable warning for default imports
-      file: 'dist/cjs/lambda-context.js',
+      file: 'dist/cjs/lambda-context.cjs',
       format: 'cjs',
       sourcemap: true,
     },

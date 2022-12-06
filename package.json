@@ -20,9 +20,23 @@
     "lambda-context.*"
   ],
   "type": "module",
-  "main": "dist/cjs/index.js",
+  "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.js",
   "typings": "dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "module": "./dist/esm/index.js",
+      "import": "./dist/cjs/index.cjs",
+      "default": "./dist/cjs/index.cjs"
+    },
+    "./lambda-context": {
+      "types": "./lambda-context.d.ts",
+      "module": "./lambda-context.js",
+      "import": "./lambda-context.cjs",
+      "default": "./lambda-context.cjs"
+    }
+  },
   "homepage": "https://github.com/birchill/bugsnag-zero#readme",
   "engines": {
     "node": ">=12.0.0"
