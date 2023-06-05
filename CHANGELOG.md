@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/birchill/bugsnag-zero/compare/v0.5.1...v0.6.0) (2023-06-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* The types for the react plugin have now changed to
+accomodate TypeScript 5.1's more strict checking of JSX element types.
+
+For Preact you will need something like the following:
+
+```ts
+  Bugsnag.getPlugin('react')!.createErrorBoundary<
+    ComponentType,
+    VNode,
+    ComponentType<ErrorBoundaryProps<ComponentType<FallbackComponentProps>>>
+  >(React.Component, React.createElement);
+```
+
+### Bug Fixes
+
+* **deps:** update dependency ua-parser-js to v1.0.34 ([c9f9e8a](https://github.com/birchill/bugsnag-zero/commit/c9f9e8a695bff476b2b8a79f61339d4eba0f6e09))
+* **deps:** update dependency ua-parser-js to v1.0.35 ([ac857d9](https://github.com/birchill/bugsnag-zero/commit/ac857d9f0cf7402ea0bfb18f42e7795aaaf3bdfe))
+* fix typing for React plugin for TypeScript 5.1 ([9017c17](https://github.com/birchill/bugsnag-zero/commit/9017c1754c9f86a06e8c9e62f05e835e83de5607))
+
 ### [0.5.1](https://github.com/birchill/bugsnag-zero/compare/v0.5.0...v0.5.1) (2022-12-06)
 
 
