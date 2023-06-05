@@ -329,6 +329,7 @@ export { limitEvents } from './limit-events';
 export {
   ReactPlugin,
   ReactPluginResult,
+  ErrorBoundaryProps,
   FallbackComponentProps,
 } from './react';
 export {

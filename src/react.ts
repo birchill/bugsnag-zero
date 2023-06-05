@@ -22,14 +22,16 @@ import { toException } from './to-exception';
 //   const MyBugsnagErrorBoundary = React.useMemo(
 //     () =>
 //       Bugsnag.getPlugin('react')!.createErrorBoundary<
-//         typeof React.Component,
 //         ComponentType,
-//         VNode
+//         VNode,
+//         ComponentType<ErrorBoundaryProps<ComponentType<FallbackComponentProps>>>
 //       >(React.Component, React.createElement),
 //     []
 //   );
 //
 // I'm not sure about React-proper, however.
+//
+// This would be a lot simpler with higher-kinded types.
 
 // Unlike the official client, we don't allow passing in React to the
 // constructor. Instead we always require a call to createErrorBoundary.
@@ -37,18 +39,14 @@ export const ReactPlugin: Plugin = {
   name: 'react',
   load(client: ExtendedClientApi): ReactPluginResult {
     return {
-      createErrorBoundary: <
-        Component extends ClassComponentType,
-        ComponentType,
-        Element
-      >(
-        component: Component,
+      createErrorBoundary: <ComponentType, Element, ErrorBoundaryComponent>(
+        component: ClassComponentType,
         createElement: CreateElementFunc<
-          FallbackComponentProps,
+          Record<string, any>,
           ComponentType,
           Element
         >
-      ): Component => {
+      ): ErrorBoundaryComponent => {
         return createClass(client, component, createElement);
       },
     };
@@ -56,18 +54,14 @@ export const ReactPlugin: Plugin = {
 };
 
 export interface ReactPluginResult {
-  createErrorBoundary<
-    Component extends ClassComponentType,
-    ComponentType,
-    Element
-  >(
-    component: Component,
+  createErrorBoundary<ComponentType, Element, ErrorBoundaryComponent>(
+    component: ClassComponentType,
     createElement: CreateElementFunc<
-      FallbackComponentProps,
+      Record<string, any>,
       ComponentType,
       Element
     >
-  ): Component;
+  ): ErrorBoundaryComponent;
 }
 
 export type FallbackComponentProps = {
@@ -108,32 +102,16 @@ interface ErrorInfo {
   componentStack: string;
 }
 
-type ErrorBoundaryProps<ComponentType> = {
+export type ErrorBoundaryProps<ComponentType> = {
   onError?: OnErrorCallback;
   FallbackComponent?: ComponentType;
 };
 
-type ErrorBoundaryState = {
-  error?: Error;
-  info?: ErrorInfo;
-};
-
-function createClass<
-  Component extends ClassComponentType<
-    ErrorBoundaryProps<ComponentType>,
-    ErrorBoundaryState
-  >,
-  ComponentType,
-  Element
->(
+function createClass<ComponentType, Element, ErrorBoundaryComponent>(
   client: ExtendedClientApi,
-  component: Component,
-  createElement: CreateElementFunc<
-    FallbackComponentProps,
-    ComponentType,
-    Element
-  >
-) {
+  component: ClassComponentType,
+  createElement: CreateElementFunc<Record<string, any>, ComponentType, Element>
+): ErrorBoundaryComponent {
   abstract class BugsnagErrorBoundaryComponent extends component {
     constructor(...args: any[]) {
       super(args);
@@ -187,7 +165,7 @@ function createClass<
     }
   }
 
-  return BugsnagErrorBoundaryComponent;
+  return BugsnagErrorBoundaryComponent as ErrorBoundaryComponent;
 }
 
 function formatComponentStack(str: string): string {
