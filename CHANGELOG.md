@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.1](https://github.com/birchill/bugsnag-zero/compare/v0.6.0...v0.6.1) (2023-07-12)
+
+
+### Bug Fixes
+
+* don't try to read `arguments` from call stack function ([9ad5016](https://github.com/birchill/bugsnag-zero/commit/9ad501614bde5d664e97463c8a2b5aef4f51f9c9))
+
 ## [0.6.0](https://github.com/birchill/bugsnag-zero/compare/v0.5.1...v0.6.0) (2023-06-05)
 
 
