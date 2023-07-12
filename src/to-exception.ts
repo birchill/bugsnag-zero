@@ -129,7 +129,7 @@ function generateBacktrace(): Array<StackFrame> {
     return [];
   }
 
-  while (curr && stack.length < MAX_STACK_SIZE && curr['arguments']) {
+  while (curr && stack.length < MAX_STACK_SIZE) {
     if (curr.name) {
       stack.push({ method: curr.name, file: '(unknown file)' });
     } else if (/function(?:\s+([\w$]+))+\s*\(/.test(curr.toString())) {
