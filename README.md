@@ -310,5 +310,9 @@ yarn build
 ```
 yarn release
 git push --follow-tags
-yarn publish
 ```
+
+Hopefully GitHub Actions will take care of publishing the release.
+
+(Note that it's going to default to applying the `latest` tag so if we ever need
+to publish an update to an older version we'll need to do it manually.)
