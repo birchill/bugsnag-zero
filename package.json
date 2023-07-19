@@ -31,10 +31,10 @@
       "default": "./dist/cjs/index.cjs"
     },
     "./lambda-context": {
-      "types": "./lambda-context.d.ts",
-      "module": "./lambda-context.js",
-      "import": "./lambda-context.cjs",
-      "default": "./lambda-context.cjs"
+      "types": "./dist/esm/lambda-context.d.ts",
+      "module": "./dist/esm/lambda-context.js",
+      "import": "./dist/cjs/lambda-context.cjs",
+      "default": "./dist/cjs/lambda-context.cjs"
     }
   },
   "homepage": "https://github.com/birchill/bugsnag-zero#readme",
