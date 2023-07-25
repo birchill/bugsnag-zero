@@ -10,7 +10,8 @@
     "prepublishOnly": "pinst --disable && rollup -c",
     "postinstall": "husky install",
     "postpublish": "pinst --enable",
-    "release": "standard-version"
+    "release": "standard-version",
+    "test": "vitest run"
   },
   "bugs": {
     "url": "https://github.com/birchill/bugsnag-zero/issues"
@@ -63,7 +64,9 @@
     "rollup": "3.26.3",
     "standard-version": "9.5.0",
     "tslib": "2.6.1",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "vitest": "0.33.0",
+    "vitest-github-actions-reporter": "0.10.0"
   },
   "dependencies": {
     "aws-lambda": "^1.0.7",
