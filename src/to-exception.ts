@@ -1,7 +1,6 @@
-import { isObject } from './is-object';
-
-import { BugsnagException, StackFrame } from './event';
+import type { BugsnagException, StackFrame } from './event';
 import { isError } from './is-error';
+import { isObject } from './is-object';
 import { parseStack } from './parse-stack';
 
 export function toException(
