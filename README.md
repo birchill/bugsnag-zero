@@ -75,6 +75,7 @@ import Bugsnag, {
   navigationBreadcrumbs,
   ReactPlugin,
   redactKeys,
+  stringifyValues,
 } from '@birchill/bugsnag-zero';
 
 const plugins = [
@@ -91,6 +92,7 @@ const plugins = [
   navigationBreadcrumbs,
   ReactPlugin,
   redactKeys(['accessToken', 'password']),
+  stringifyValues,
 ];
 
 if (__RELEASE_STAGE__ !== 'test') {
@@ -222,7 +224,7 @@ async function handler(event: Event, context: Context): Promise<void> {
 
 Bugsnag's [v5 reporting API](https://bugsnagerrorreportingapi.docs.apiary.io/#reference/0/notify/send-error-reports)
 requires passing in the browser name, browser version, OS name etc. explicitly.
-In other words, it requires you to parse the user agent string on the client.
+In other words, it requires you to parse the user agent string on the _client_.
 
 By comparison, the v4 API that the official client uses just passes the user
 agent string to the API and lets the server parse it.
