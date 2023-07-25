@@ -14,7 +14,7 @@ export function toException(
   if (error.name === 'InvalidError') {
     metadata = {
       [component]: {
-        'non-error parameter': String(maybeError),
+        'non-error parameter': maybeError,
       },
     };
   }

@@ -182,10 +182,21 @@ class BugsnagStatic implements ExtendedClientApi {
     if (onError) {
       errorCallbacks.push(onError);
     }
-    // Make sure the redact callback comes last
-    errorCallbacks.sort((a, b) =>
-      a.name === 'redact' ? -1 : b.name === 'redact' ? 1 : 0
-    );
+
+    // Make sure the redact and stringifyValues callbacks come last
+    const sortLast = ['stringifyValues', 'redact'];
+    errorCallbacks.sort((a, b) => {
+      if (a.name in sortLast && b.name in sortLast) {
+        return 0;
+      } else if (a.name in sortLast) {
+        return 1;
+      } else if (b.name in sortLast) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+
     for (const callback of errorCallbacks) {
       const callbackResult = await callback(event);
       if (typeof callbackResult === 'boolean' && !callbackResult) {
@@ -343,6 +354,7 @@ export {
   RedactKeysPluginResult,
   redactObject,
 } from './redact-keys';
+export { stringifyValues } from './stringify-values';
 
 // Delivery plugins
 export { FetchDelivery } from './fetch-delivery';

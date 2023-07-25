@@ -19,6 +19,7 @@ import { browserContext } from './browser-context';
 import { deviceOrientation } from './deviceorientation';
 import { limitEvents } from './limit-events';
 import { redactKeys } from './redact-keys';
+import { stringifyValues } from './stringify-values';
 
 export interface LegacyConfig {
   apiKey: string;
@@ -112,6 +113,7 @@ export function fromLegacyConfig(input: LegacyConfig | string): Config {
   }
   plugins.push(deviceOrientation);
   plugins.push(limitEvents(legacyConfig.maxEvents || 10));
+  plugins.push(stringifyValues);
 
   const keys = legacyConfig.redactedKeys || ['password'];
   if (keys.length) {
