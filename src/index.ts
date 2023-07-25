@@ -1,6 +1,7 @@
 import {
   Client,
   Delivery,
+  EventForDelivery,
   ExtendedClientApi,
   OnErrorCallback,
   OnPostErrorCallback,
@@ -10,6 +11,7 @@ import { Config } from './config';
 import { Breadcrumb, BreadcrumbType, BugsnagEvent, User } from './event';
 import { FetchDelivery } from './fetch-delivery';
 import { Notifier } from './notifier';
+import { safeFilter } from './safe-filter';
 import { toException } from './to-exception';
 
 class BugsnagStatic implements ExtendedClientApi {
@@ -197,33 +199,41 @@ class BugsnagStatic implements ExtendedClientApi {
       url: 'https://github.com/birchill/bugsnag-zero',
     };
 
-    // Copy the event so that if other actions occur while we're sending
-    // (e.g. new breadcrumbs added) the event being sent won't be changed.
-    //
-    // We drop the original error first and then restore it because (a) we don't
-    // want to send it, and (b) we don't know if it can be safely serialized.
-    delete (event as any).originalError;
-    let eventCopy = JSON.parse(JSON.stringify(event));
-    (event as any).originalError = originalError;
+    let eventForDelivery = safeFilter(
+      event,
+      (key, value) => {
+        if (key === 'originalError') {
+          return undefined;
+        }
+        return value;
+      },
+      { depthLimit: 20, edgesLimit: 500 }
+    ) as EventForDelivery;
 
-    let body = JSON.stringify({
+    let body: string;
+    const payload = {
       apiKey: this.config.apiKey,
       payloadVersion: '5',
       notifier,
-      events: [eventCopy],
-    });
+      events: [eventForDelivery],
+    };
+
+    try {
+      body = JSON.stringify(payload);
+    } catch {
+      eventForDelivery.metaData = {
+        notifier: 'Unable to serialize metadata',
+      };
+
+      body = JSON.stringify(payload);
+    }
 
     // Check the size of the payload
     if (body.length > 10e5) {
-      eventCopy.metadata = {
+      eventForDelivery.metaData = {
         notifier: `Payload was ${body.length / 10e5}Mb. Metadata removed.`,
       };
-      body = JSON.stringify({
-        apiKey: this.config.apiKey,
-        payloadVersion: '5',
-        notifier,
-        events: [eventCopy],
-      });
+      body = JSON.stringify(payload);
       if (body.length > 10e5) {
         throw new Error('Payload exceeded 1Mb limit');
       }
@@ -239,12 +249,7 @@ class BugsnagStatic implements ExtendedClientApi {
     }
 
     try {
-      await this.delivery.sendEvent({
-        apiKey: this.config.apiKey,
-        payloadVersion: '5',
-        events: [eventCopy],
-        notifier,
-      });
+      await this.delivery.sendEvent(payload);
     } catch (e) {
       console.error('Failed to post report to Bugsnag', e);
     }
