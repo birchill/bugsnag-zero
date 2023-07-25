@@ -1,5 +1,6 @@
-import { ExtendedClientApi, Plugin } from './client';
-import { BugsnagEvent } from './event';
+import type { ExtendedClientApi, Plugin } from './client';
+import type { BugsnagEvent } from './event';
+import { safeFilter } from './safe-filter';
 
 export interface RedactKeysPluginResult {
   redactEvent(event: BugsnagEvent): BugsnagEvent;
@@ -10,7 +11,7 @@ export const redactKeys = (keys: Array<string>): Plugin => ({
   name: 'redactKeys',
   load(client: ExtendedClientApi): RedactKeysPluginResult {
     client.addOnError(function redact(event: BugsnagEvent) {
-      redactEventInPlace(event, keys);
+      redactObject(event, keys);
     });
 
     return {
@@ -21,57 +22,29 @@ export const redactKeys = (keys: Array<string>): Plugin => ({
 });
 
 export function redactEvent(
-  event: Readonly<BugsnagEvent>,
-  keys: Array<string>
-): BugsnagEvent {
-  const copy = JSON.parse(JSON.stringify(event));
-  return redactEventInPlace(copy, keys);
-}
-
-export function redactObject<T>(obj: Readonly<T>, keys: Array<string>): T {
-  const copy = JSON.parse(JSON.stringify(obj));
-  return redactInPlace(copy, keys);
-}
-
-function redactEventInPlace(
   event: BugsnagEvent,
   keys: Array<string>
 ): BugsnagEvent {
-  event.request = redactInPlace(event.request, keys);
+  event.request = redactObject(event.request, keys);
 
   if (event.metaData) {
-    event.metaData = redactInPlace(event.metaData, keys);
+    event.metaData = redactObject(event.metaData, keys);
   }
 
   if (event.breadcrumbs) {
-    event.breadcrumbs.map((breadcrumb) => ({
+    event.breadcrumbs = event.breadcrumbs.map((breadcrumb) => ({
       ...breadcrumb,
-      metaData: redactInPlace(breadcrumb.metaData, keys),
+      metaData: redactObject(breadcrumb.metaData, keys),
     }));
   }
 
   return event;
 }
 
-function redactInPlace<T>(target: T, keys: Array<string>): T {
-  if (Array.isArray(target)) {
-    // The following cast isn't strictly correct (since by redacting we could be
-    // changing the type) but it's good enough for our purposes.
-    return target.map((elem) => redactInPlace(elem, keys)) as unknown as T;
-  }
-
-  if (typeof target !== 'object' || target === null) {
-    return target;
-  }
-
-  const redacted: Record<string, any> = {};
-  for (const [key, value] of Object.entries(target)) {
-    if (keys.includes(key)) {
-      redacted[key] = '[REDACTED]';
-    } else {
-      redacted[key] = redactInPlace(value, keys);
-    }
-  }
-
-  return redacted as unknown as T;
+export function redactObject<T>(object: T, keys: Array<string>): T {
+  // The following cast isn't strictly correct since by redacting we could be
+  // changing the type but it's good enough for our purposes.
+  return safeFilter(object, (key, value) => {
+    return typeof key === 'string' && keys.includes(key) ? '[REDACTED]' : value;
+  }) as unknown as T;
 }
