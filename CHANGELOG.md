@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.3](https://github.com/birchill/bugsnag-zero/compare/v0.6.2...v0.6.3) (2023-07-26)
+
+
+### Features
+
+* add stringifyValues pluin ([1103912](https://github.com/birchill/bugsnag-zero/commit/110391241adbb5583892d5548e00920fe4f76ca8))
+* make redactKeys plugin handle cyclic object references ([29888d0](https://github.com/birchill/bugsnag-zero/commit/29888d06e154f13b95ac66e673b142881d4e4ab6))
+
+
+### Bug Fixes
+
+* pre-process payload to remove circular references ([23dedc4](https://github.com/birchill/bugsnag-zero/commit/23dedc42fce265fcedddaf1f11737931e682cf92)), closes [#110](https://github.com/birchill/bugsnag-zero/issues/110)
+
 ### [0.6.2](https://github.com/birchill/bugsnag-zero/compare/v0.6.1...v0.6.2) (2023-07-19)
 
 
