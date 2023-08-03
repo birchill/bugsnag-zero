@@ -61,7 +61,7 @@
     "lint-staged": "13.2.3",
     "pinst": "3.0.0",
     "prettier": "3.0.1",
-    "rollup": "3.27.0",
+    "rollup": "3.27.1",
     "standard-version": "9.5.0",
     "tslib": "2.6.1",
     "typescript": "5.1.6",
