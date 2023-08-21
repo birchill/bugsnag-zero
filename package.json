@@ -58,7 +58,7 @@
     "@types/node": "18.17.6",
     "@types/ua-parser-js": "0.7.36",
     "husky": "8.0.3",
-    "lint-staged": "14.0.0",
+    "lint-staged": "14.0.1",
     "pinst": "3.0.0",
     "prettier": "3.0.2",
     "rollup": "3.28.0",
