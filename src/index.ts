@@ -186,11 +186,11 @@ class BugsnagStatic implements ExtendedClientApi {
     // Make sure the redact and stringifyValues callbacks come last
     const sortLast = ['stringifyValues', 'redact'];
     errorCallbacks.sort((a, b) => {
-      if (a.name in sortLast && b.name in sortLast) {
+      if (sortLast.includes(a.name) && sortLast.includes(b.name)) {
         return 0;
-      } else if (a.name in sortLast) {
+      } else if (sortLast.includes(a.name)) {
         return 1;
-      } else if (b.name in sortLast) {
+      } else if (sortLast.includes(b.name)) {
         return -1;
       } else {
         return 0;
@@ -210,7 +210,7 @@ class BugsnagStatic implements ExtendedClientApi {
       url: 'https://github.com/birchill/bugsnag-zero',
     };
 
-    let eventForDelivery = safeFilter(
+    const eventForDelivery = safeFilter(
       event,
       (key, value) => {
         if (key === 'originalError') {
