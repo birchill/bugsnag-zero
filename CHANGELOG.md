@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.4](https://github.com/birchill/bugsnag-zero/compare/v0.6.3...v0.6.4) (2023-09-01)
+
+
+### Bug Fixes
+
+* sort plugins correctly ([77b140d](https://github.com/birchill/bugsnag-zero/commit/77b140dff1f98cb8d865cfc0d23e1d57a4f4dbc2))
+
 ### [0.6.3](https://github.com/birchill/bugsnag-zero/compare/v0.6.2...v0.6.3) (2023-07-26)
 
 
