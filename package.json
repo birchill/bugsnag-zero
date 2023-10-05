@@ -53,7 +53,7 @@
     "bracketSpacing": true
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "11.1.4",
+    "@rollup/plugin-typescript": "11.1.5",
     "@types/aws-lambda": "8.10.123",
     "@types/node": "18.18.3",
     "@types/ua-parser-js": "0.7.37",
