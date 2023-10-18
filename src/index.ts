@@ -109,6 +109,15 @@ class BugsnagStatic implements ExtendedClientApi {
       return;
     }
 
+    // It appears we sometimes get non-string `message` values here.
+    if (typeof message !== 'string') {
+      try {
+        message = String(message);
+      } catch {
+        message = 'Unable to stringify breadcrumb message';
+      }
+    }
+
     if (!message.length) {
       return;
     }
