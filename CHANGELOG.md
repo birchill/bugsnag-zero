@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.5](https://github.com/birchill/bugsnag-zero/compare/v0.6.4...v0.6.5) (2023-10-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ua-parser-js to v1.0.36 ([09f6a00](https://github.com/birchill/bugsnag-zero/commit/09f6a001b01e1d5e216e2ba1450ebe5dc9c32fbc))
+* handle non-ErrorEvent arguments in error event handler ([3ce4ce2](https://github.com/birchill/bugsnag-zero/commit/3ce4ce252a20e653e15abf9e4c58fbc270847d4e))
+* handle non-string messages in leaveBreadcrumb ([fa7a40e](https://github.com/birchill/bugsnag-zero/commit/fa7a40e13fc904761fa4415544062a0b5a8969c1))
+
 ### [0.6.4](https://github.com/birchill/bugsnag-zero/compare/v0.6.3...v0.6.4) (2023-09-01)
 
 
