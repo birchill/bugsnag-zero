@@ -11,6 +11,14 @@
     {
       "matchDepTypes": ["devDependencies"],
       "addLabels": ["dev"]
+    },
+    {
+      "packageNames": ["node"],
+      "enabled": false
+    },
+    {
+      "matchPackageNames": ["@types/node"],
+      "allowedVersions": "<=18.x"
     }
   ]
 }
