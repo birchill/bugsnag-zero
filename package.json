@@ -56,7 +56,7 @@
     "@rollup/plugin-typescript": "11.1.5",
     "@types/aws-lambda": "8.10.126",
     "@types/node": "18.18.8",
-    "@types/ua-parser-js": "0.7.38",
+    "@types/ua-parser-js": "0.7.39",
     "husky": "8.0.3",
     "lint-staged": "15.0.2",
     "pinst": "3.0.0",
