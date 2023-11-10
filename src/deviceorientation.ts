@@ -10,10 +10,10 @@ export const deviceOrientation: Plugin = {
       const screen = self.screen;
       if (screen && screen.orientation && screen.orientation.type) {
         orientation = screen.orientation.type;
-      } else if (document.documentElement) {
+      } else if (self.document && self.document.documentElement) {
         orientation =
-          document.documentElement.clientWidth >
-          document.documentElement.clientHeight
+          self.document.documentElement.clientWidth >
+          self.document.documentElement.clientHeight
             ? 'landscape'
             : 'portrait';
       }
