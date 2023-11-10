@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.6](https://github.com/birchill/bugsnag-zero/compare/v0.6.5...v0.6.6) (2023-11-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ua-parser-js to v1.0.37 ([8006555](https://github.com/birchill/bugsnag-zero/commit/80065558057cc61719dfc56d9f3a8529fc2b5dec))
+* fix check for document ([d29e387](https://github.com/birchill/bugsnag-zero/commit/d29e387ccc1f971ade44bd180ee5f5bd966ffbdc))
+
 ### [0.6.5](https://github.com/birchill/bugsnag-zero/compare/v0.6.4...v0.6.5) (2023-10-18)
 
 
