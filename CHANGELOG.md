@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.7](https://github.com/birchill/bugsnag-zero/compare/v0.6.6...v0.6.7) (2024-01-22)
+
+
+### Bug Fixes
+
+* handle objects with stringifiers in fetch breadcrumbs plugin ([e25f781](https://github.com/birchill/bugsnag-zero/commit/e25f7810230ba7c42cc7c0f087d01d3cfada3ad0)), closes [#132](https://github.com/birchill/bugsnag-zero/issues/132)
+
 ### [0.6.6](https://github.com/birchill/bugsnag-zero/compare/v0.6.5...v0.6.6) (2023-11-10)
 
 
