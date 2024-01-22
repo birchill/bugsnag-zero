@@ -69,7 +69,6 @@
     "vitest-github-actions-reporter": "0.11.1"
   },
   "dependencies": {
-    "aws-lambda": "^1.0.7",
     "ua-parser-js": "^1.0.32"
   }
 }
