@@ -1,4 +1,5 @@
 import { ExtendedClientApi, Plugin } from './client';
+import { isObject } from './is-object';
 
 // Unlike the official bugsnag JS client this does NOT cover XHR.
 // Furthermore, it does not provide a way to be cleaned up.
@@ -10,48 +11,43 @@ export const fetchBreadcrumbs: Plugin = {
     }
 
     const oldFetch = self.fetch;
-    self.fetch = function fetch(input: RequestInfo, init?: RequestInit) {
-      let method: string | undefined;
+    self.fetch = function fetch(input: RequestInfo | URL, init?: RequestInit) {
+      let method = 'GET';
       let url: string;
 
-      if (input && typeof input === 'object') {
+      if (isRequest(input)) {
         url = input.url;
-        if (init && 'method' in init) {
-          method = init.method;
-        } else if (input && 'method' in input) {
-          method = input.method;
-        }
+        method = input.method;
       } else {
-        url = input;
-        if (init && 'method' in init) {
-          method = init.method;
-        }
+        url = input.toString();
       }
 
-      if (method === undefined) {
-        method = 'GET';
+      // Per the fetch algorithm, the method specified in the RequestInit takes
+      // precedence over the method specified in the Request.
+      if (init && typeof init.method === 'string' && init.method.length) {
+        method = init.method;
       }
 
       const leaveBreadcrumb = client.leaveBreadcrumb.bind(client);
       return new Promise((resolve, reject) => {
         oldFetch(input, init)
           .then((response) => {
-            handleFetchSuccess({
-              response,
-              method: method!,
-              url,
-              leaveBreadcrumb,
-            });
+            handleFetchSuccess({ response, method, url, leaveBreadcrumb });
             resolve(response);
           })
           .catch((error) => {
-            handleFetchError({ method: method!, url, leaveBreadcrumb });
+            handleFetchError({ method, url, leaveBreadcrumb });
             reject(error);
           });
       });
     };
   },
 };
+
+function isRequest(input: RequestInfo | URL): input is Request {
+  // instanceof alone won't work for objects from different realms
+  return input instanceof Request || (isObject(input) && 'url' in input);
+}
 
 function handleFetchSuccess({
   response,
