@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "pinst --disable && rollup -c",
-    "postinstall": "husky install",
+    "postinstall": "husky",
     "postpublish": "pinst --enable",
     "release": "standard-version",
     "test": "vitest run"
@@ -57,7 +57,7 @@
     "@types/aws-lambda": "8.10.131",
     "@types/node": "18.19.9",
     "@types/ua-parser-js": "0.7.39",
-    "husky": "9.0.5",
+    "husky": "9.0.6",
     "lint-staged": "15.2.0",
     "pinst": "3.0.0",
     "prettier": "3.2.4",
