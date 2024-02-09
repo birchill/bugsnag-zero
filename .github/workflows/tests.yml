@@ -6,11 +6,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4.0.2
         with:
           cache: yarn
-          node-version: 18
+          node-version: 20
           registry-url: https://registry.npmjs.org
 
       - name: yarn install, test
