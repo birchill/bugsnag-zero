@@ -53,9 +53,7 @@ function getNodeText(elem: HTMLElement): string {
   ) {
     text = (elem as HTMLInputElement).value;
   }
-  // Truncate text first to avoid running our whitespace regex on a large string
-  text = truncate(text, 140);
-  return text.replace(/^\s+|\s+$/g, ''); // trim whitespace
+  return truncate(text.trim(), 140);
 }
 
 // Create a label from tagname, id and css class of the element
