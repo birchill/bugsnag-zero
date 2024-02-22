@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.8](https://github.com/birchill/bugsnag-zero/compare/v0.6.7...v0.6.8) (2024-02-22)
+
+
+### Bug Fixes
+
+* truncate node text before tidying up whitespace ([db3ee7e](https://github.com/birchill/bugsnag-zero/commit/db3ee7ee256eff5c7adb78d82fe41e473189642a)), closes [#135](https://github.com/birchill/bugsnag-zero/issues/135)
+
 ### [0.6.7](https://github.com/birchill/bugsnag-zero/compare/v0.6.6...v0.6.7) (2024-01-22)
 
 
