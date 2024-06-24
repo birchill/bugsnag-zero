@@ -12,7 +12,7 @@ import { Breadcrumb, BreadcrumbType, BugsnagEvent, User } from './event';
 import { FetchDelivery } from './fetch-delivery';
 import { Notifier } from './notifier';
 import { safeFilter } from './safe-filter';
-import { toException } from './to-exception';
+import { toExceptions as toExceptions } from './to-exceptions';
 
 class BugsnagStatic implements ExtendedClientApi {
   private breadcrumbs: Array<Breadcrumb> = [];
@@ -68,7 +68,7 @@ class BugsnagStatic implements ExtendedClientApi {
         }
       | OnErrorCallback = {}
   ): Promise<void> {
-    let { exception, metadata } = toException(error, 'notify');
+    let { exceptions, metadata } = toExceptions(error, 'notify');
 
     let onError: OnErrorCallback | undefined;
     let severity: BugsnagEvent['severity'] | undefined;
@@ -84,7 +84,7 @@ class BugsnagStatic implements ExtendedClientApi {
 
     return this.notifyEvent(
       {
-        exceptions: [exception],
+        exceptions,
         metadata,
         severity,
         onError,

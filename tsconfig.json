@@ -12,6 +12,7 @@
       "es2017.object",
       "es2018.promise",
       "es2021.promise",
+      "es2022",
       "esnext.asynciterable"
     ],
     "moduleResolution": "node",
@@ -22,7 +23,7 @@
     "rootDir": "./src",
     "sourceMap": true,
     "strictNullChecks": true,
-    "target": "es2018"
+    "target": "es2022"
   },
   "exclude": ["node_modules", "dist", "vitest.config.ts"]
 }

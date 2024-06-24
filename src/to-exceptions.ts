@@ -2,11 +2,15 @@ import type { BugsnagException, StackFrame } from './event';
 import { isError } from './is-error';
 import { isObject } from './is-object';
 import { parseStack } from './parse-stack';
+import { NonEmptyArray } from './type-helpers';
 
-export function toException(
+export function toExceptions(
   maybeError: unknown,
   component: string
-): { exception: BugsnagException; metadata?: Record<string, any> } {
+): {
+  exceptions: NonEmptyArray<BugsnagException>;
+  metadata?: Record<string, any>;
+} {
   const error = normalizeError(maybeError, component);
 
   // Add metadata for non-errors
@@ -27,18 +31,16 @@ export function toException(
     metadata = { ...metadata, [error.name]: (error as any).metadata };
   }
 
-  return {
-    exception: {
-      errorClass: error.name,
-      message: error.message,
-      stacktrace: getStacktrace(error),
-      type:
-        typeof self === 'object' && (self as Window).navigator
-          ? 'browserjs'
-          : 'nodejs',
-    },
-    metadata,
-  };
+  const exceptions: NonEmptyArray<BugsnagException> = [makeException(error)];
+
+  // Add any causes
+  exceptions.push(
+    ...getCauses(error).map((cause) =>
+      makeException(cause, { backtrace: false })
+    )
+  );
+
+  return { exceptions, metadata };
 }
 
 function normalizeError(maybeError: unknown, component: string): Error {
@@ -88,15 +90,35 @@ function fromSimpleError(error: unknown): Error | null {
   return newError;
 }
 
-function getStacktrace(error: Error): Array<StackFrame> {
+function makeException(
+  error: Error,
+  stackOptions: { backtrace: boolean } = { backtrace: false }
+): BugsnagException {
+  return {
+    errorClass: error.name,
+    message: error.message,
+    stacktrace: getStacktrace(error, stackOptions),
+    type:
+      typeof self === 'object' && (self as Window).navigator
+        ? 'browserjs'
+        : 'nodejs',
+  };
+}
+
+function getStacktrace(
+  error: Error,
+  { backtrace }: { backtrace: boolean }
+): Array<StackFrame> {
   const stackString = getStackString(error);
   if (stackString) {
     return parseStack(stackString);
-  } else {
+  } else if (backtrace) {
     // TODO: We'll probably want to trim this to remove some of our own
     // frames from it but let's wait until we actually have some examples of
     // that to work with.
     return generateBacktrace();
+  } else {
+    return [];
   }
 }
 
@@ -143,4 +165,17 @@ function generateBacktrace(): Array<StackFrame> {
   }
 
   return stack;
+}
+
+function getCauses(error: Error): Array<Error> {
+  if (!error.cause) {
+    return [];
+  }
+
+  const cause = normalizeError(error.cause, 'cause');
+  if (cause.name === 'InvalidError') {
+    return [];
+  }
+
+  return [cause].concat(getCauses(cause));
 }

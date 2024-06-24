@@ -1,5 +1,5 @@
 import { ExtendedClientApi, OnErrorCallback, Plugin } from './client';
-import { toException } from './to-exception';
+import { toExceptions } from './to-exceptions';
 
 // ------------------------------------------------------------------------
 //
@@ -79,12 +79,12 @@ export type FallbackComponentProps = {
 type CreateElementFunc<
   P extends Record<string, any>,
   ComponentType,
-  Element
+  Element,
 > = (type: ComponentType, props?: P | null, ...children: any) => Element;
 
 type ClassComponentType<
   P = Record<string, any>,
-  S = Record<string, any>
+  S = Record<string, any>,
 > = abstract new (...args: any[]) => ClassComponent<P, S>;
 
 interface ClassComponent<P = Record<string, any>, S = Record<string, any>> {
@@ -127,14 +127,14 @@ function createClass<ComponentType, Element, ErrorBoundaryComponent>(
     }
 
     componentDidCatch(error: Error, info?: ErrorInfo) {
-      const { exception, metadata } = toException(error, 'notify');
+      const { exceptions, metadata } = toExceptions(error, 'notify');
       if (info && info.componentStack) {
         info.componentStack = formatComponentStack(info.componentStack);
       }
       const { onError } = this.props;
       client.notifyEvent(
         {
-          exceptions: [exception],
+          exceptions,
           unhandled: true,
           severity: 'error',
           severityReason: {
