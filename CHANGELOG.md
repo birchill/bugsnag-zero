@@ -2,101 +2,100 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.6.8](https://github.com/birchill/bugsnag-zero/compare/v0.6.7...v0.6.8) (2024-02-22)
-
-
-### Bug Fixes
-
-* truncate node text before tidying up whitespace ([db3ee7e](https://github.com/birchill/bugsnag-zero/commit/db3ee7ee256eff5c7adb78d82fe41e473189642a)), closes [#135](https://github.com/birchill/bugsnag-zero/issues/135)
-
-### [0.6.7](https://github.com/birchill/bugsnag-zero/compare/v0.6.6...v0.6.7) (2024-01-22)
-
-
-### Bug Fixes
-
-* handle objects with stringifiers in fetch breadcrumbs plugin ([e25f781](https://github.com/birchill/bugsnag-zero/commit/e25f7810230ba7c42cc7c0f087d01d3cfada3ad0)), closes [#132](https://github.com/birchill/bugsnag-zero/issues/132)
-
-### [0.6.6](https://github.com/birchill/bugsnag-zero/compare/v0.6.5...v0.6.6) (2023-11-10)
-
-
-### Bug Fixes
-
-* **deps:** update dependency ua-parser-js to v1.0.37 ([8006555](https://github.com/birchill/bugsnag-zero/commit/80065558057cc61719dfc56d9f3a8529fc2b5dec))
-* fix check for document ([d29e387](https://github.com/birchill/bugsnag-zero/commit/d29e387ccc1f971ade44bd180ee5f5bd966ffbdc))
-
-### [0.6.5](https://github.com/birchill/bugsnag-zero/compare/v0.6.4...v0.6.5) (2023-10-18)
-
-
-### Bug Fixes
-
-* **deps:** update dependency ua-parser-js to v1.0.36 ([09f6a00](https://github.com/birchill/bugsnag-zero/commit/09f6a001b01e1d5e216e2ba1450ebe5dc9c32fbc))
-* handle non-ErrorEvent arguments in error event handler ([3ce4ce2](https://github.com/birchill/bugsnag-zero/commit/3ce4ce252a20e653e15abf9e4c58fbc270847d4e))
-* handle non-string messages in leaveBreadcrumb ([fa7a40e](https://github.com/birchill/bugsnag-zero/commit/fa7a40e13fc904761fa4415544062a0b5a8969c1))
-
-### [0.6.4](https://github.com/birchill/bugsnag-zero/compare/v0.6.3...v0.6.4) (2023-09-01)
-
-
-### Bug Fixes
-
-* sort plugins correctly ([77b140d](https://github.com/birchill/bugsnag-zero/commit/77b140dff1f98cb8d865cfc0d23e1d57a4f4dbc2))
-
-### [0.6.3](https://github.com/birchill/bugsnag-zero/compare/v0.6.2...v0.6.3) (2023-07-26)
-
+### [0.6.9](https://github.com/birchill/bugsnag-zero/compare/v0.6.8...v0.6.9) (2024-06-24)
 
 ### Features
 
-* add stringifyValues pluin ([1103912](https://github.com/birchill/bugsnag-zero/commit/110391241adbb5583892d5548e00920fe4f76ca8))
-* make redactKeys plugin handle cyclic object references ([29888d0](https://github.com/birchill/bugsnag-zero/commit/29888d06e154f13b95ac66e673b142881d4e4ab6))
-
+- handle Javascript error causes ([31f5b50](https://github.com/birchill/bugsnag-zero/commit/31f5b50d0df92e36520c9bf0069cec9cb9e6306d))
 
 ### Bug Fixes
 
-* pre-process payload to remove circular references ([23dedc4](https://github.com/birchill/bugsnag-zero/commit/23dedc42fce265fcedddaf1f11737931e682cf92)), closes [#110](https://github.com/birchill/bugsnag-zero/issues/110)
+- **deps:** update dependency ua-parser-js to v1.0.38 ([34bc718](https://github.com/birchill/bugsnag-zero/commit/34bc71866322ba2b7d75be60f67023428cbb0f0a))
+
+### [0.6.8](https://github.com/birchill/bugsnag-zero/compare/v0.6.7...v0.6.8) (2024-02-22)
+
+### Bug Fixes
+
+- truncate node text before tidying up whitespace ([db3ee7e](https://github.com/birchill/bugsnag-zero/commit/db3ee7ee256eff5c7adb78d82fe41e473189642a)), closes [#135](https://github.com/birchill/bugsnag-zero/issues/135)
+
+### [0.6.7](https://github.com/birchill/bugsnag-zero/compare/v0.6.6...v0.6.7) (2024-01-22)
+
+### Bug Fixes
+
+- handle objects with stringifiers in fetch breadcrumbs plugin ([e25f781](https://github.com/birchill/bugsnag-zero/commit/e25f7810230ba7c42cc7c0f087d01d3cfada3ad0)), closes [#132](https://github.com/birchill/bugsnag-zero/issues/132)
+
+### [0.6.6](https://github.com/birchill/bugsnag-zero/compare/v0.6.5...v0.6.6) (2023-11-10)
+
+### Bug Fixes
+
+- **deps:** update dependency ua-parser-js to v1.0.37 ([8006555](https://github.com/birchill/bugsnag-zero/commit/80065558057cc61719dfc56d9f3a8529fc2b5dec))
+- fix check for document ([d29e387](https://github.com/birchill/bugsnag-zero/commit/d29e387ccc1f971ade44bd180ee5f5bd966ffbdc))
+
+### [0.6.5](https://github.com/birchill/bugsnag-zero/compare/v0.6.4...v0.6.5) (2023-10-18)
+
+### Bug Fixes
+
+- **deps:** update dependency ua-parser-js to v1.0.36 ([09f6a00](https://github.com/birchill/bugsnag-zero/commit/09f6a001b01e1d5e216e2ba1450ebe5dc9c32fbc))
+- handle non-ErrorEvent arguments in error event handler ([3ce4ce2](https://github.com/birchill/bugsnag-zero/commit/3ce4ce252a20e653e15abf9e4c58fbc270847d4e))
+- handle non-string messages in leaveBreadcrumb ([fa7a40e](https://github.com/birchill/bugsnag-zero/commit/fa7a40e13fc904761fa4415544062a0b5a8969c1))
+
+### [0.6.4](https://github.com/birchill/bugsnag-zero/compare/v0.6.3...v0.6.4) (2023-09-01)
+
+### Bug Fixes
+
+- sort plugins correctly ([77b140d](https://github.com/birchill/bugsnag-zero/commit/77b140dff1f98cb8d865cfc0d23e1d57a4f4dbc2))
+
+### [0.6.3](https://github.com/birchill/bugsnag-zero/compare/v0.6.2...v0.6.3) (2023-07-26)
+
+### Features
+
+- add stringifyValues pluin ([1103912](https://github.com/birchill/bugsnag-zero/commit/110391241adbb5583892d5548e00920fe4f76ca8))
+- make redactKeys plugin handle cyclic object references ([29888d0](https://github.com/birchill/bugsnag-zero/commit/29888d06e154f13b95ac66e673b142881d4e4ab6))
+
+### Bug Fixes
+
+- pre-process payload to remove circular references ([23dedc4](https://github.com/birchill/bugsnag-zero/commit/23dedc42fce265fcedddaf1f11737931e682cf92)), closes [#110](https://github.com/birchill/bugsnag-zero/issues/110)
 
 ### [0.6.2](https://github.com/birchill/bugsnag-zero/compare/v0.6.1...v0.6.2) (2023-07-19)
 
-
 ### Bug Fixes
 
-* fix path to lambda-context export ([a3d6ad9](https://github.com/birchill/bugsnag-zero/commit/a3d6ad9b3cb03c2e864855c56dbcca15591c21b2))
+- fix path to lambda-context export ([a3d6ad9](https://github.com/birchill/bugsnag-zero/commit/a3d6ad9b3cb03c2e864855c56dbcca15591c21b2))
 
 ### [0.6.1](https://github.com/birchill/bugsnag-zero/compare/v0.6.0...v0.6.1) (2023-07-12)
 
-
 ### Bug Fixes
 
-* don't try to read `arguments` from call stack function ([9ad5016](https://github.com/birchill/bugsnag-zero/commit/9ad501614bde5d664e97463c8a2b5aef4f51f9c9))
+- don't try to read `arguments` from call stack function ([9ad5016](https://github.com/birchill/bugsnag-zero/commit/9ad501614bde5d664e97463c8a2b5aef4f51f9c9))
 
 ## [0.6.0](https://github.com/birchill/bugsnag-zero/compare/v0.5.1...v0.6.0) (2023-06-05)
 
-
 ### ⚠ BREAKING CHANGES
 
-* The types for the react plugin have now changed to
-accomodate TypeScript 5.1's more strict checking of JSX element types.
+- The types for the react plugin have now changed to
+  accomodate TypeScript 5.1's more strict checking of JSX element types.
 
 For Preact you will need something like the following:
 
 ```ts
-  Bugsnag.getPlugin('react')!.createErrorBoundary<
-    ComponentType,
-    VNode,
-    ComponentType<ErrorBoundaryProps<ComponentType<FallbackComponentProps>>>
-  >(React.Component, React.createElement);
+Bugsnag.getPlugin('react')!.createErrorBoundary<
+  ComponentType,
+  VNode,
+  ComponentType<ErrorBoundaryProps<ComponentType<FallbackComponentProps>>>
+>(React.Component, React.createElement);
 ```
 
 ### Bug Fixes
 
-* **deps:** update dependency ua-parser-js to v1.0.34 ([c9f9e8a](https://github.com/birchill/bugsnag-zero/commit/c9f9e8a695bff476b2b8a79f61339d4eba0f6e09))
-* **deps:** update dependency ua-parser-js to v1.0.35 ([ac857d9](https://github.com/birchill/bugsnag-zero/commit/ac857d9f0cf7402ea0bfb18f42e7795aaaf3bdfe))
-* fix typing for React plugin for TypeScript 5.1 ([9017c17](https://github.com/birchill/bugsnag-zero/commit/9017c1754c9f86a06e8c9e62f05e835e83de5607))
+- **deps:** update dependency ua-parser-js to v1.0.34 ([c9f9e8a](https://github.com/birchill/bugsnag-zero/commit/c9f9e8a695bff476b2b8a79f61339d4eba0f6e09))
+- **deps:** update dependency ua-parser-js to v1.0.35 ([ac857d9](https://github.com/birchill/bugsnag-zero/commit/ac857d9f0cf7402ea0bfb18f42e7795aaaf3bdfe))
+- fix typing for React plugin for TypeScript 5.1 ([9017c17](https://github.com/birchill/bugsnag-zero/commit/9017c1754c9f86a06e8c9e62f05e835e83de5607))
 
 ### [0.5.1](https://github.com/birchill/bugsnag-zero/compare/v0.5.0...v0.5.1) (2022-12-06)
 
-
 ### Bug Fixes
 
-* fix broken CJS setup ([5dd4175](https://github.com/birchill/bugsnag-zero/commit/5dd41750e67c2155f8a8d778199efbf53a0f9d88))
+- fix broken CJS setup ([5dd4175](https://github.com/birchill/bugsnag-zero/commit/5dd41750e67c2155f8a8d778199efbf53a0f9d88))
 
 ### [0.5.0](https://github.com/birchill/bugsnag-zero/compare/v0.4.18...v0.5.0) (2022-12-03)
 
