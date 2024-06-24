@@ -1,5 +1,5 @@
 import { ExtendedClientApi, Plugin } from './client';
-import { toException } from './to-exception';
+import { toExceptions } from './to-exceptions';
 
 export const browserHandledRejectionBreadcrumbs: Plugin = {
   name: 'browserHandledRejectionBreadcrumbs',
@@ -7,12 +7,12 @@ export const browserHandledRejectionBreadcrumbs: Plugin = {
     self.addEventListener('rejectionhandled', (evt: PromiseRejectionEvent) => {
       const error = evt.reason;
 
-      const { exception } = toException(error, 'handledrejection');
-      const message = `Handled Promise rejection: [${exception.errorClass}] ${exception.message}`;
+      const { exceptions } = toExceptions(error, 'handledrejection');
+      const message = `Handled Promise rejection: [${exceptions[0].errorClass}] ${exceptions[0].message}`;
 
       client.leaveBreadcrumb(
         message,
-        { stacktrace: exception.stacktrace },
+        { stacktrace: exceptions[0].stacktrace },
         'error'
       );
     });

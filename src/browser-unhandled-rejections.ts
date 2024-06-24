@@ -1,5 +1,5 @@
 import { ExtendedClientApi, Plugin } from './client';
-import { toException } from './to-exception';
+import { toExceptions } from './to-exceptions';
 
 export const browserNotifyUnhandledRejections: Plugin = {
   name: 'browserNotifyUnhandledRejections',
@@ -9,7 +9,7 @@ export const browserNotifyUnhandledRejections: Plugin = {
       (evt: PromiseRejectionEvent) => {
         const error = evt.reason;
 
-        const { exception, metadata } = toException(
+        const { exceptions, metadata } = toExceptions(
           error,
           'unhandledrejection'
         );
@@ -23,7 +23,7 @@ export const browserNotifyUnhandledRejections: Plugin = {
 
         client.notifyEvent(
           {
-            exceptions: [exception],
+            exceptions,
             unhandled: true,
             severity: 'error',
             severityReason: {

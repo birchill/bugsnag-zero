@@ -8,7 +8,7 @@ import UAParser from 'ua-parser-js';
 
 import { ExtendedClientApi, Plugin } from './client';
 import { BugsnagEvent } from './event';
-import { toException } from './to-exception';
+import { toExceptions } from './to-exceptions';
 
 export interface LambdaContextPlugin {
   setContext(
@@ -241,9 +241,8 @@ export const lambdaContext = (
               executionTimeout = setTimeout(() => {
                 client.notifyEvent(
                   {
-                    exceptions: [
-                      toException(originalError, 'notify').exception,
-                    ],
+                    exceptions: toExceptions(originalError, 'notify')
+                      .exceptions,
                     unhandled: true,
                     severity: 'warning',
                     severityReason: { type: 'log' },

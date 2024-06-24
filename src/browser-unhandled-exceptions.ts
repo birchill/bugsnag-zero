@@ -1,12 +1,13 @@
 import type { ExtendedClientApi, Plugin } from './client';
 import type { BugsnagException } from './event';
-import { toException } from './to-exception';
+import { toExceptions } from './to-exceptions';
+import { NonEmptyArray } from './type-helpers';
 
 export const browserNotifyUnhandledExceptions: Plugin = {
   name: 'browserNotifyUnhandledExceptions',
   load(client: ExtendedClientApi) {
     self.addEventListener('error', (evt: ErrorEvent | Event) => {
-      let exception: BugsnagException;
+      let exceptions: NonEmptyArray<BugsnagException>;
       let metadata: Record<string, any> | undefined;
 
       if (evt instanceof ErrorEvent) {
@@ -17,12 +18,12 @@ export const browserNotifyUnhandledExceptions: Plugin = {
           return;
         }
 
-        ({ exception, metadata } = toException(error, 'window onerror'));
+        ({ exceptions, metadata } = toExceptions(error, 'window onerror'));
 
         // Augment first stacktrace if we have more info in the ErrorEvent than
         // the stack trace we got.
         const columnNumber = Number.isSafeInteger(colno) ? colno : undefined;
-        const { stacktrace } = exception;
+        const { stacktrace } = exceptions[0];
         if (!stacktrace.length) {
           stacktrace.push({
             file,
@@ -38,12 +39,12 @@ export const browserNotifyUnhandledExceptions: Plugin = {
             firstStackFrame.columnNumber ?? columnNumber;
         }
       } else {
-        ({ exception, metadata } = toException(evt, 'window onerror'));
+        ({ exceptions, metadata } = toExceptions(evt, 'window onerror'));
       }
 
       client.notifyEvent(
         {
-          exceptions: [exception],
+          exceptions,
           unhandled: true,
           severity: 'error',
           severityReason: {

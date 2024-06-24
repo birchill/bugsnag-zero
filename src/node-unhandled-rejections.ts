@@ -1,15 +1,18 @@
 import { ExtendedClientApi, Plugin } from './client';
-import { toException } from './to-exception';
+import { toExceptions } from './to-exceptions';
 
 export const nodeNotifyUnhandledRejections: Plugin = {
   name: 'nodeNotifyUnhandledRejections',
   load(client: ExtendedClientApi) {
     process.prependListener('unhandledRejection', (reason, promise) => {
-      const { exception, metadata } = toException(reason, 'unhandledrejection');
+      const { exceptions, metadata } = toExceptions(
+        reason,
+        'unhandledrejection'
+      );
 
       client.notifyEvent(
         {
-          exceptions: [exception],
+          exceptions,
           unhandled: true,
           severity: 'error',
           severityReason: {
