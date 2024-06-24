@@ -142,9 +142,9 @@ function generateBacktrace(): Array<StackFrame> {
   const stack: Array<StackFrame> = [];
 
   // arguments.callee cannot be accessed in strict mode.
-  /* eslint @typescript-eslint/ban-types: 0 */
   let curr: Function;
   try {
+    // eslint-disable-next-line no-caller
     curr = arguments.callee;
   } catch (_e) {
     return [];
