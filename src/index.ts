@@ -12,8 +12,9 @@ import { Breadcrumb, BreadcrumbType, BugsnagEvent, User } from './event';
 import { FetchDelivery } from './fetch-delivery';
 import { Notifier } from './notifier';
 import { safeFilter } from './safe-filter';
-import { toExceptions as toExceptions } from './to-exceptions';
+import { toExceptions } from './to-exceptions';
 
+// eslint-disable-next-line typescript-eslint(no-unsafe-declaration-merging)
 class BugsnagStatic implements ExtendedClientApi {
   private breadcrumbs: Array<Breadcrumb> = [];
   private config: Config | undefined;

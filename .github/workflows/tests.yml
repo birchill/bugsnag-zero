@@ -13,11 +13,19 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org
 
-      - name: yarn install, test
-        run: |
-          yarn install
-          yarn build
-          yarn test
+      - run: yarn install
+        env:
+          CI: true
+
+      - run: yarn build
+        env:
+          CI: true
+
+      - run: yarn test
+        env:
+          CI: true
+
+      - run: yarn lint
         env:
           CI: true
 

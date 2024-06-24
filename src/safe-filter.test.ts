@@ -325,7 +325,7 @@ describe('safeFilter', () => {
   });
 
   it('trims long arrays when an edgesLimit is specified', () => {
-    const array = new Array(1_000).fill('abc');
+    const array = Array.from({ length: 1_000 }).fill('abc');
     expect(filter(array, null, { edgesLimit: 3 })).toEqual([
       'abc',
       'abc',
