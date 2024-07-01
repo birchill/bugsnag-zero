@@ -69,7 +69,7 @@
     "rollup": "4.18.0",
     "standard-version": "9.5.0",
     "tslib": "2.6.3",
-    "typescript": "5.5.2",
+    "typescript": "5.5.3",
     "vitest": "1.6.0",
     "vitest-github-actions-reporter": "0.11.1"
   },
