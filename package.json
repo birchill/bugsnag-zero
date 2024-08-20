@@ -61,7 +61,7 @@
     "@types/aws-lambda": "8.10.143",
     "@types/node": "20.16.1",
     "@types/ua-parser-js": "0.7.39",
-    "husky": "9.1.4",
+    "husky": "9.1.5",
     "lint-staged": "15.2.9",
     "oxlint": "0.7.2",
     "pinst": "3.0.0",
