@@ -146,7 +146,7 @@ function generateBacktrace(): Array<StackFrame> {
   try {
     // eslint-disable-next-line no-caller
     curr = arguments.callee;
-  } catch (_e) {
+  } catch {
     return [];
   }
 
@@ -159,7 +159,7 @@ function generateBacktrace(): Array<StackFrame> {
 
     try {
       curr = curr.caller;
-    } catch (e) {
+    } catch {
       break;
     }
   }

@@ -32,7 +32,7 @@ export const consoleBreadcrumbs: Plugin = {
               //   implementation
               try {
                 stringified = String(arg);
-              } catch (_e) {
+              } catch {
                 /* Ignore */
               }
 
@@ -42,7 +42,7 @@ export const consoleBreadcrumbs: Plugin = {
                 // [object Object])
                 try {
                   stringified = JSON.stringify(arg);
-                } catch (_e) {
+                } catch {
                   /* Ignore */
                 }
               }
