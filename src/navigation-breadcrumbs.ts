@@ -77,7 +77,7 @@ function relativeLocation(url: string): string {
   try {
     const urlObj = new URL(url);
     return `${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
-  } catch (e) {
+  } catch {
     return url;
   }
 }
@@ -85,7 +85,7 @@ function relativeLocation(url: string): string {
 function getCurrentState(win: Window): any {
   try {
     return win.history.state;
-  } catch (e) {
+  } catch {
     return {};
   }
 }

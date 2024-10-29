@@ -19,7 +19,7 @@ export const interactionBreadcrumbs: Plugin = {
           targetSelector = isElement(event.target)
             ? getNodeSelector(event.target)
             : '(Non-element target)';
-        } catch (e) {
+        } catch {
           targetText = '[hidden]';
           targetSelector = '[hidden]';
         }
