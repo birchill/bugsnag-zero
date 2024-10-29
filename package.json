@@ -7,9 +7,8 @@
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
-    "prepublishOnly": "pinst --disable && rollup -c",
-    "postinstall": "husky",
-    "postpublish": "pinst --enable",
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky",
     "release": "standard-version",
     "test": "vitest run",
     "lint": "oxlint"
@@ -64,7 +63,6 @@
     "husky": "9.1.6",
     "lint-staged": "15.2.10",
     "oxlint": "0.10.3",
-    "pinst": "3.0.0",
     "prettier": "3.3.3",
     "rollup": "4.24.2",
     "standard-version": "9.5.0",
