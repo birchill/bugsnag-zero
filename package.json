@@ -58,7 +58,7 @@
   "devDependencies": {
     "@rollup/plugin-typescript": "12.1.1",
     "@types/aws-lambda": "8.10.145",
-    "@types/node": "20.17.3",
+    "@types/node": "20.17.4",
     "@types/ua-parser-js": "0.7.39",
     "husky": "9.1.6",
     "lint-staged": "15.2.10",
