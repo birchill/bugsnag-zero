@@ -72,6 +72,6 @@
     "vitest-github-actions-reporter": "0.11.1"
   },
   "dependencies": {
-    "ua-parser-js": "^1.0.32"
+    "ua-parser-js": "^2.0.0"
   }
 }
