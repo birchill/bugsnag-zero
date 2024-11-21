@@ -1,4 +1,4 @@
-import { UserAgentInfo } from './browser-context';
+import type { UserAgentInfo } from './user-agent-types';
 
 // The Bugsnag v5 API requires doing your own UA string parsing, requiring a
 // `browserName`, `browserVersion`, `osName`, `osVersion`, etc.

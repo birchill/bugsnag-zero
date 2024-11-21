@@ -4,11 +4,12 @@ import {
   Context,
 } from 'aws-lambda';
 import { platform as osPlatform, release as osRelease } from 'os';
-import UAParser from 'ua-parser-js';
 
 import { ExtendedClientApi, Plugin } from './client';
 import { BugsnagEvent } from './event';
+import { parseUserAgent } from './simple-ua-parser';
 import { toExceptions } from './to-exceptions';
+import { UserAgentParserFn } from './user-agent-types';
 
 export interface LambdaContextPlugin {
   setContext(
@@ -22,7 +23,8 @@ export interface LambdaContextPlugin {
   };
 }
 
-export const lambdaContext = (
+export const lambdaContextWithUaParser = (
+  uaParser: UserAgentParserFn,
   initialEvent?: Record<string, any>,
   initialContext?: Context
 ): Plugin => {
@@ -157,9 +159,7 @@ export const lambdaContext = (
             lambdaEvent.requestContext.identity.userAgent || undefined;
         }
 
-        const browser = userAgent
-          ? new UAParser(userAgent).getBrowser()
-          : undefined;
+        const browser = userAgent ? uaParser(userAgent) : undefined;
         const hostname = lambdaEvent?.requestContext?.domainName;
 
         let timeEpoch: number | undefined;
@@ -171,12 +171,15 @@ export const lambdaContext = (
 
         event.device = {
           hostname,
-          osName: osPlatform(),
-          osVersion: osRelease(),
+          osName: browser?.osName || osPlatform(),
+          osVersion: browser?.osVersion || osRelease(),
           freeMemory,
           totalMemory,
-          browserName: browser?.name,
-          browserVersion: browser?.version,
+          browserName: browser?.browserName,
+          browserVersion: browser?.browserVersion,
+          manufacturer: browser?.manufacturer,
+          model: browser?.model,
+          modelNumber: browser?.modelNumber,
           runtimeVersions: {
             node: process.version,
           },
@@ -282,6 +285,17 @@ export const lambdaContext = (
       };
     },
   };
+};
+
+export const lambdaContext = (
+  initialEvent?: Record<string, any>,
+  initialContext?: Context
+): Plugin => {
+  return lambdaContextWithUaParser(
+    parseUserAgent,
+    initialEvent,
+    initialContext
+  );
 };
 
 function isGwV2Event(

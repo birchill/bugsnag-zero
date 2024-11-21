@@ -1,18 +1,7 @@
 import { ExtendedClientApi, Plugin } from './client';
 import { BugsnagEvent } from './event';
 import { parseUserAgent } from './simple-ua-parser';
-
-export type UserAgentInfo = {
-  browserName?: string;
-  browserVersion?: string;
-  osName?: string;
-  osVersion?: string;
-  manufacturer?: string;
-  model?: string;
-  modelNumber?: string;
-};
-
-export type UserAgentParserFn = (userAgent: string) => UserAgentInfo;
+import type { UserAgentParserFn } from './user-agent-types';
 
 export const browserContextWithUaParser = (
   uaParser: UserAgentParserFn
