@@ -344,12 +344,7 @@ export { nodeNotifyUnhandledExceptions } from './node-unhandled-exceptions';
 
 // Other plugins
 export { appDuration } from './app-duration';
-export {
-  browserContext,
-  browserContextWithUaParser,
-  UserAgentParserFn,
-  UserAgentInfo,
-} from './browser-context';
+export { browserContext, browserContextWithUaParser } from './browser-context';
 export { deviceOrientation } from './deviceorientation';
 export { limitEvents } from './limit-events';
 export {
@@ -365,6 +360,7 @@ export {
   redactObject,
 } from './redact-keys';
 export { stringifyValues } from './stringify-values';
+export type { UserAgentParserFn, UserAgentInfo } from './user-agent-types';
 
 // Delivery plugins
 export { FetchDelivery } from './fetch-delivery';

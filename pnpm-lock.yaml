@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      ua-parser-js:
-        specifier: ^1.0.32
-        version: 1.0.39
     devDependencies:
       '@rollup/plugin-typescript':
         specifier: 12.1.1
@@ -1393,10 +1389,6 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  ua-parser-js@1.0.39:
-    resolution: {integrity: sha512-k24RCVWlEcjkdOxYmVJgeD/0a1TiSpqLg+ZalVGV9lsnr4yqu0w7tX/x2xX6G4zpkgQnRf89lxuZ1wsbjXM8lw==}
-    hasBin: true
-
   uglify-js@3.19.3:
     resolution: {integrity: sha512-v3Xu+yuwBXisp6QYTcH4UbH+xYJXqnq2m/LtQVWKWzYc1iehYnLixoQDN9FH6/j9/oybfd6W9Ghwkl8+UMKTKQ==}
     engines: {node: '>=0.8.0'}
@@ -2755,8 +2747,6 @@ snapshots:
   typedarray@0.0.6: {}
 
   typescript@5.6.3: {}
-
-  ua-parser-js@1.0.39: {}
 
   uglify-js@3.19.3:
     optional: true
