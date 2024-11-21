@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/birchill/bugsnag-zero/compare/v0.6.9...v0.7.0) (2024-11-21)
+
+### ⚠ BREAKING CHANGES
+
+- If you want to continue to use `ua-parser-js` in
+  `lambda-context` you will need to use `lambdaContextWithUaParser` and
+  pass in your own parser function as described here:
+  https://github.com/birchill/bugsnag-zero?tab=readme-ov-file#using-a-custom-user-agent-string-parser
+
+This is because from version `ua-parser-js` version 2 onwards, users are
+required to either use the AGPL version or license the library.
+
+It's best to allow users of this package to decide how they want to
+consume `ua-parser-js`.
+
+### Features
+
+- don't require ua-parser-js in lambda-context ([3ab253c](https://github.com/birchill/bugsnag-zero/commit/3ab253cc9c1c1a7820f780cab1383c376ae492c1))
+
+### Bug Fixes
+
+- **deps:** update dependency ua-parser-js to v1.0.39 ([bb79fdc](https://github.com/birchill/bugsnag-zero/commit/bb79fdc7f4ebe90d9a135d3fa618242ef2f9cb64))
+
 ### [0.6.9](https://github.com/birchill/bugsnag-zero/compare/v0.6.8...v0.6.9) (2024-06-24)
 
 ### Features
