@@ -1,5 +1,5 @@
 {
-  "extends": ["config:base", ":dependencyDashboard"],
+  "extends": ["config:recommended", ":dependencyDashboard"],
   "labels": ["dependencies"],
   "packageRules": [
     {
@@ -13,7 +13,7 @@
       "addLabels": ["dev"]
     },
     {
-      "packageNames": ["node"],
+      "matchPackageNames": ["node"],
       "enabled": false
     },
     {
