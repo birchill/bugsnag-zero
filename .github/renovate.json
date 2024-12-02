@@ -9,6 +9,11 @@
       "automergeType": "branch"
     },
     {
+      "matchPackageNames": ["oxlint"],
+      "automerge": true,
+      "automergeType": "branch"
+    },
+    {
       "matchDepTypes": ["devDependencies"],
       "addLabels": ["dev"]
     },
