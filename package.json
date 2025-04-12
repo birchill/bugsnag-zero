@@ -63,7 +63,7 @@
     "lint-staged": "15.5.1",
     "oxlint": "0.16.5",
     "prettier": "3.5.3",
-    "rollup": "4.39.0",
+    "rollup": "4.40.0",
     "standard-version": "9.5.0",
     "tslib": "2.8.1",
     "typescript": "5.8.3",
