@@ -114,7 +114,7 @@ function createClass<ComponentType, Element, ErrorBoundaryComponent>(
 ): ErrorBoundaryComponent {
   abstract class BugsnagErrorBoundaryComponent extends component {
     constructor(...args: any[]) {
-      super(args);
+      super(...args);
       this.state = {
         error: undefined,
         info: undefined,
