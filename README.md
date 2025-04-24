@@ -304,13 +304,13 @@ Note that none of this is tested at all so let me know if it doesn't work.
 ### Building
 
 ```
-yarn build
+pnpm build
 ```
 
 ### Releasing
 
 ```
-yarn release
+pnpm release
 git push --follow-tags
 ```
 
