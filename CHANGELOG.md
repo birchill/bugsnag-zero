@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.2](https://github.com/birchill/bugsnag-zero/compare/v0.7.1...v0.7.2) (2025-04-24)
+
+### Bug Fixes
+
+- fix passing of arguments in BugsnagErrorBoundaryComponent ([#179](https://github.com/birchill/bugsnag-zero/issues/179)) ([d8870ab](https://github.com/birchill/bugsnag-zero/commit/d8870abdae8a69541d8c7bf1d9a2610eb6d3c325))
+
 ### [0.7.1](https://github.com/birchill/bugsnag-zero/compare/v0.7.0...v0.7.1) (2025-02-10)
 
 ## [0.7.0](https://github.com/birchill/bugsnag-zero/compare/v0.6.9...v0.7.0) (2024-11-21)
