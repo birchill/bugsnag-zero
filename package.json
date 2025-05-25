@@ -61,7 +61,7 @@
     "@types/ua-parser-js": "0.7.39",
     "husky": "9.1.7",
     "lint-staged": "16.0.0",
-    "oxlint": "0.16.11",
+    "oxlint": "0.16.12",
     "prettier": "3.5.3",
     "rollup": "4.41.1",
     "standard-version": "9.5.0",
