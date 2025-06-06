@@ -15,8 +15,8 @@ importers:
         specifier: 8.10.149
         version: 8.10.149
       '@types/node':
-        specifier: 22.15.29
-        version: 22.15.29
+        specifier: 22.15.30
+        version: 22.15.30
       '@types/ua-parser-js':
         specifier: 0.7.39
         version: 0.7.39
@@ -46,10 +46,10 @@ importers:
         version: 5.8.3
       vitest:
         specifier: 3.2.2
-        version: 3.2.2(@types/node@22.15.29)
+        version: 3.2.2(@types/node@22.15.30)
       vitest-github-actions-reporter:
         specifier: 0.11.1
-        version: 0.11.1(vitest@3.2.2(@types/node@22.15.29))
+        version: 0.11.1(vitest@3.2.2(@types/node@22.15.30))
 
 packages:
 
@@ -402,8 +402,8 @@ packages:
   '@types/minimist@1.2.5':
     resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
 
-  '@types/node@22.15.29':
-    resolution: {integrity: sha512-LNdjOkUDlU1RZb8e1kOIUpN1qQUlzGkEtbVNo53vbrwDg5om6oduhm4SiUaPW5ASTXhAiP0jInWG8Qx9fVlOeQ==}
+  '@types/node@22.15.30':
+    resolution: {integrity: sha512-6Q7lr06bEHdlfplU6YRbgG1SFBdlsfNC4/lX+SkhiTs0cpJkOElmWls8PxDFv4yY/xKb8Y6SO0OmSX4wgqTZbA==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -1714,7 +1714,7 @@ snapshots:
 
   '@types/minimist@1.2.5': {}
 
-  '@types/node@22.15.29':
+  '@types/node@22.15.30':
     dependencies:
       undici-types: 6.21.0
 
@@ -1730,13 +1730,13 @@ snapshots:
       chai: 5.2.0
       tinyrainbow: 2.0.0
 
-  '@vitest/mocker@3.2.2(vite@5.4.10(@types/node@22.15.29))':
+  '@vitest/mocker@3.2.2(vite@5.4.10(@types/node@22.15.30))':
     dependencies:
       '@vitest/spy': 3.2.2
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
-      vite: 5.4.10(@types/node@22.15.29)
+      vite: 5.4.10(@types/node@22.15.30)
 
   '@vitest/pretty-format@3.2.2':
     dependencies:
@@ -2717,13 +2717,13 @@ snapshots:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
 
-  vite-node@3.2.2(@types/node@22.15.29):
+  vite-node@3.2.2(@types/node@22.15.30):
     dependencies:
       cac: 6.7.14
       debug: 4.4.1
       es-module-lexer: 1.7.0
       pathe: 2.0.3
-      vite: 5.4.10(@types/node@22.15.29)
+      vite: 5.4.10(@types/node@22.15.30)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -2735,25 +2735,25 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.10(@types/node@22.15.29):
+  vite@5.4.10(@types/node@22.15.30):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
       rollup: 4.41.1
     optionalDependencies:
-      '@types/node': 22.15.29
+      '@types/node': 22.15.30
       fsevents: 2.3.3
 
-  vitest-github-actions-reporter@0.11.1(vitest@3.2.2(@types/node@22.15.29)):
+  vitest-github-actions-reporter@0.11.1(vitest@3.2.2(@types/node@22.15.30)):
     dependencies:
       '@actions/core': 1.11.1
-      vitest: 3.2.2(@types/node@22.15.29)
+      vitest: 3.2.2(@types/node@22.15.30)
 
-  vitest@3.2.2(@types/node@22.15.29):
+  vitest@3.2.2(@types/node@22.15.30):
     dependencies:
       '@types/chai': 5.2.2
       '@vitest/expect': 3.2.2
-      '@vitest/mocker': 3.2.2(vite@5.4.10(@types/node@22.15.29))
+      '@vitest/mocker': 3.2.2(vite@5.4.10(@types/node@22.15.30))
       '@vitest/pretty-format': 3.2.2
       '@vitest/runner': 3.2.2
       '@vitest/snapshot': 3.2.2
@@ -2771,11 +2771,11 @@ snapshots:
       tinyglobby: 0.2.14
       tinypool: 1.1.0
       tinyrainbow: 2.0.0
-      vite: 5.4.10(@types/node@22.15.29)
-      vite-node: 3.2.2(@types/node@22.15.29)
+      vite: 5.4.10(@types/node@22.15.30)
+      vite-node: 3.2.2(@types/node@22.15.30)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 22.15.29
+      '@types/node': 22.15.30
     transitivePeerDependencies:
       - less
       - lightningcss
