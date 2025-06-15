@@ -60,7 +60,7 @@
     "@types/node": "22.15.31",
     "@types/ua-parser-js": "0.7.39",
     "husky": "9.1.7",
-    "lint-staged": "16.1.1",
+    "lint-staged": "16.1.2",
     "oxlint": "1.1.0",
     "prettier": "3.5.3",
     "rollup": "4.43.0",
