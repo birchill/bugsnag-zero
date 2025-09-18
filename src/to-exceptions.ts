@@ -81,7 +81,7 @@ function fromSimpleError(error: unknown): Error | null {
 
   const name = getStringMember('name') || getStringMember('errorClass');
   const message = getStringMember('message') || getStringMember('errorMessage');
-  if (!name || !message) {
+  if (!name) {
     return null;
   }
 
