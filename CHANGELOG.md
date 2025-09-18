@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.3](https://github.com/birchill/bugsnag-zero/compare/v0.7.2...v0.7.3) (2025-09-18)
+
+### Features
+
+- use Error.isError when available ([018c8d4](https://github.com/birchill/bugsnag-zero/commit/018c8d48855ed289e82fdcd30ce6d2c46dbba02f))
+
+### Bug Fixes
+
+- allow empty message on error objects ([1af3d1a](https://github.com/birchill/bugsnag-zero/commit/1af3d1a26c67daa9897d58c5c3a8ea8d1950da5a))
+
 ### [0.7.2](https://github.com/birchill/bugsnag-zero/compare/v0.7.1...v0.7.2) (2025-04-24)
 
 ### Bug Fixes
