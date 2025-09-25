@@ -20,10 +20,8 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "pretty": true,
-    "rootDir": "./src",
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es2022"
-  },
-  "exclude": ["node_modules", "dist", "vitest.config.ts"]
+  }
 }

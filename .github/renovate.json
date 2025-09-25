@@ -1,5 +1,9 @@
 {
-  "extends": ["config:recommended", ":dependencyDashboard"],
+  "extends": [
+    "config:recommended",
+    "helpers:disableTypesNodeMajor",
+    ":dependencyDashboard"
+  ],
   "labels": ["dependencies"],
   "packageRules": [
     {
@@ -9,7 +13,8 @@
       "automergeType": "branch"
     },
     {
-      "matchPackageNames": ["oxlint"],
+      "matchPackageNames": ["oxlint", "tsdown"],
+      "matchCurrentVersion": "/^0\\./",
       "automerge": true,
       "automergeType": "branch"
     },
@@ -20,10 +25,6 @@
     {
       "matchPackageNames": ["node"],
       "enabled": false
-    },
-    {
-      "matchPackageNames": ["@types/node"],
-      "allowedVersions": "<=22.x"
     }
   ]
 }

@@ -1,0 +1,35 @@
+{
+  "name": "@birchill/bugsnag-zero",
+  "version": "0.7.3",
+  "description": "A lightweight Bugsnag client",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/birchill/bugsnag-zero.git",
+    "directory": "packages/bugsnag-zero"
+  },
+  "author": "Birchill, Inc.",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsdown",
+    "release": "standard-version",
+    "test": "vitest run",
+    "lint": "oxlint"
+  },
+  "bugs": {
+    "url": "https://github.com/birchill/bugsnag-zero/issues"
+  },
+  "files": [
+    "dist/**",
+    "README.md"
+  ],
+  "type": "module",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "homepage": "https://github.com/birchill/bugsnag-zero/tree/main/packages/bugsnag-zero#readme"
+}

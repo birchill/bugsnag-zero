@@ -1,15 +1,17 @@
-import {
+import type {
   APIGatewayProxyEvent,
   APIGatewayProxyEventV2,
   Context,
 } from 'aws-lambda';
-import { platform as osPlatform, release as osRelease } from 'os';
+import { platform as osPlatform, release as osRelease } from 'node:os';
 
-import { ExtendedClientApi, Plugin } from './client';
-import { BugsnagEvent } from './event';
-import { parseUserAgent } from './simple-ua-parser';
-import { toExceptions } from './to-exceptions';
-import { UserAgentParserFn } from './user-agent-types';
+import type {
+  BugsnagEvent,
+  ExtendedClientApi,
+  Plugin,
+  UserAgentParserFn,
+} from '@birchill/bugsnag-zero';
+import { toExceptions, parseUserAgent } from '@birchill/bugsnag-zero';
 
 export interface LambdaContextPlugin {
   setContext(
@@ -21,6 +23,10 @@ export interface LambdaContextPlugin {
       options?: { timeBeforeEndMs?: number }
     ) => Promise<Awaited<T>>;
   };
+}
+
+export interface BugsnagStatic {
+  getPlugin(id: 'lambdaContext'): LambdaContextPlugin | undefined;
 }
 
 export const lambdaContextWithUaParser = (
