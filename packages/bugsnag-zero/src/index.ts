@@ -316,17 +316,17 @@ class BugsnagStatic implements ExtendedClientApi {
 const Bugsnag = new BugsnagStatic();
 
 export default Bugsnag;
-export {
+export type {
   Client,
   Delivery,
   ExtendedClientApi,
   NotifiableError,
   Plugin,
 } from './client';
-export { Config } from './config';
-export { fromLegacyConfig, LegacyConfig } from './legacy-config';
-export { BugsnagEvent as Event } from './event';
-export { Notifier } from './notifier';
+export type { Config } from './config';
+export { fromLegacyConfig, type LegacyConfig } from './legacy-config';
+export type { BugsnagEvent as Event } from './event';
+export type { Notifier } from './notifier';
 
 // Breadcrumb loggers
 export { consoleBreadcrumbs } from './console-breadcrumbs';
@@ -349,14 +349,14 @@ export { deviceOrientation } from './deviceorientation';
 export { limitEvents } from './limit-events';
 export {
   ReactPlugin,
-  ReactPluginResult,
-  ErrorBoundaryProps,
-  FallbackComponentProps,
+  type ReactPluginResult,
+  type ErrorBoundaryProps,
+  type FallbackComponentProps,
 } from './react';
 export {
   redactEvent,
   redactKeys,
-  RedactKeysPluginResult,
+  type RedactKeysPluginResult,
   redactObject,
 } from './redact-keys';
 export { stringifyValues } from './stringify-values';
@@ -365,13 +365,14 @@ export type { UserAgentParserFn, UserAgentInfo } from './user-agent-types';
 // Delivery plugins
 export { FetchDelivery } from './fetch-delivery';
 
+// Utilities for external plugins
+export { parseUserAgent } from './simple-ua-parser';
+export { toExceptions };
+
 interface BugsnagStatic {
   getPlugin(id: 'react'): import('./react').ReactPluginResult | undefined;
   getPlugin(
     id: 'redactKeys'
   ): import('./redact-keys').RedactKeysPluginResult | undefined;
-  getPlugin(
-    id: 'lambdaContext'
-  ): import('./lambda-context').LambdaContextPlugin | undefined;
   getPlugin(id: string): unknown;
 }
