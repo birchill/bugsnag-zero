@@ -1,5 +1,13 @@
 # @birchill/bugsnag-zero-lambda-context
 
+## 0.8.2
+
+### Patch Changes
+
+- aeb966d: Export BugsnagStatic type so external plugins can extend it
+- Updated dependencies [aeb966d]
+  - @birchill/bugsnag-zero@0.8.1
+
 ## 0.8.1
 
 ### Patch Changes
