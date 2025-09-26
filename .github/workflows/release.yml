@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   release:
+    if: github.repository == 'birchill/bugsnag-zero'
     name: Release
     runs-on: ubuntu-latest
     steps:
