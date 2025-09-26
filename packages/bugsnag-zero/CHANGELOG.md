@@ -1,6 +1,4 @@
-# Changelog
-
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+# @birchill/bugsnag-zero
 
 ### [0.7.3](https://github.com/birchill/bugsnag-zero/compare/v0.7.2...v0.7.3) (2025-09-18)
 
