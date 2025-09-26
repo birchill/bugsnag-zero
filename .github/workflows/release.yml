@@ -32,9 +32,11 @@ jobs:
         env:
           CI: true
 
-      - name: Create release pull request
+      - name: Create/update pull request or publish
         uses: changesets/action@v1
         with:
+          commit: 'chore(release): publish'
+          title: 'Publish next version'
           publish: pnpm ci:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
