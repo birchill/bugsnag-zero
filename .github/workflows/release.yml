@@ -37,6 +37,6 @@ jobs:
         with:
           commit: 'chore(release): publish'
           title: 'Publish next version'
-          publish: pnpm ci:publish
+          publish: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

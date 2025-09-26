@@ -6,7 +6,7 @@
     "build": "pnpm -r build",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
-    "ci:publish": "pnpm publish -r",
+    "release": "pnpm -r build && pnpm changeset publish",
     "prepare": "husky"
   },
   "lint-staged": {
