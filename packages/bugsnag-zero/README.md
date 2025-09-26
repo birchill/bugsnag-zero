@@ -8,6 +8,8 @@ goals:
 
 - Reduced bundle size
 - Support for non-main thread contexts (e.g. Web workers)
+- Ergonomic improvements
+- Adding some missing features like custom delivery mechanisms
 
 It does this using the following approach:
 
@@ -40,9 +42,11 @@ On the other hand, it adds a few other features:
   rather than you having to provide an on-error callback (see below).
 - If an `Error` object has a `metadata` field, it will be merged into the
   reported error's metadata.
-- A `browserHandledRejectionBreadcrumbs` plugin for logging _handled_ rejections.
+- A `browserHandledRejectionBreadcrumbs` plugin for logging _handled_
+  rejections.
 - Post-error callbacks - called after fully preparing the error but just before
-  sending it. This was mostly added as a means of supporting "error" breadcrumbs.
+  sending it. This was mostly added as a means of supporting "error"
+  breadcrumbs.
 - `redactKeys` exports its functions so you can re-use them for other logging
   etc.
 
