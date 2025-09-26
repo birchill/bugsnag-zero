@@ -1,5 +1,11 @@
 # @birchill/bugsnag-zero
 
+## 0.8.1
+
+### Patch Changes
+
+- aeb966d: Export BugsnagStatic type so external plugins can extend it
+
 ## 0.8.0
 
 ### Minor Changes
