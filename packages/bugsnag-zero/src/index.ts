@@ -15,7 +15,7 @@ import { safeFilter } from './safe-filter';
 import { toExceptions } from './to-exceptions';
 
 // eslint-disable-next-line typescript-eslint(no-unsafe-declaration-merging)
-class BugsnagStatic implements ExtendedClientApi {
+export class BugsnagStatic implements ExtendedClientApi {
   private breadcrumbs: Array<Breadcrumb> = [];
   private config: Config | undefined;
   private delivery: Delivery = new FetchDelivery(this);
@@ -369,7 +369,7 @@ export { FetchDelivery } from './fetch-delivery';
 export { parseUserAgent } from './simple-ua-parser';
 export { toExceptions };
 
-interface BugsnagStatic {
+export interface BugsnagStatic {
   getPlugin(id: 'react'): import('./react').ReactPluginResult | undefined;
   getPlugin(
     id: 'redactKeys'
