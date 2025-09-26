@@ -6,7 +6,7 @@ import type {
 import { platform as osPlatform, release as osRelease } from 'node:os';
 
 import type {
-  BugsnagEvent,
+  Event,
   ExtendedClientApi,
   Plugin,
   UserAgentParserFn,
@@ -25,8 +25,10 @@ export interface LambdaContextPlugin {
   };
 }
 
-export interface BugsnagStatic {
-  getPlugin(id: 'lambdaContext'): LambdaContextPlugin | undefined;
+declare module '@birchill/bugsnag-zero' {
+  interface BugsnagStatic {
+    getPlugin(id: 'lambdaContext'): LambdaContextPlugin | undefined;
+  }
 }
 
 export const lambdaContextWithUaParser = (
@@ -66,7 +68,7 @@ export const lambdaContextWithUaParser = (
         });
       }
 
-      client.addOnError(function lambdaContext(event: BugsnagEvent) {
+      client.addOnError(function lambdaContext(event: Event) {
         // ----- Request context
 
         // Client IP
