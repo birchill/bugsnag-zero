@@ -29,6 +29,11 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org
 
+      # Temporary until setup-node action comes with npm version that contains
+      # OIDC setup by default
+      - name: update npm
+        run: npm update -g npm
+
       - run: pnpm install
         env:
           CI: true
