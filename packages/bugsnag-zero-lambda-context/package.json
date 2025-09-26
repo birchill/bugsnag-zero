@@ -1,6 +1,6 @@
 {
   "name": "@birchill/bugsnag-zero-lambda-context",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Bugsnag zero plugin for capturing AWS Lambda context",
   "repository": {
     "type": "git",

@@ -1,5 +1,11 @@
 # @birchill/bugsnag-zero-lambda-context
 
+## 0.8.1
+
+### Patch Changes
+
+- 767c69a: Fixed typing for Bugsnag.getPlugin('lambdaContext')
+
 ## 0.8.0
 
 ### Minor Changes
