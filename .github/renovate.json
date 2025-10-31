@@ -23,8 +23,8 @@
       "addLabels": ["dev"]
     },
     {
-      "matchPackageNames": ["node"],
-      "enabled": false
+      "matchPackageNames": ["node", "actions/node-versions", "@types/node"],
+      "allowedVersions": "22.x"
     }
   ]
 }
