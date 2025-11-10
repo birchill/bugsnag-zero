@@ -209,7 +209,7 @@ export class BugsnagStatic implements ExtendedClientApi {
 
     for (const callback of errorCallbacks) {
       const callbackResult = await callback(event);
-      if (typeof callbackResult === 'boolean' && !callbackResult) {
+      if (callbackResult === false) {
         return;
       }
     }
