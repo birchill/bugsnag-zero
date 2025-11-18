@@ -30,7 +30,7 @@
     "@types/ua-parser-js": "0.7.39",
     "husky": "9.1.7",
     "lint-staged": "16.2.6",
-    "oxlint": "1.28.0",
+    "oxlint": "1.29.0",
     "prettier": "3.6.2",
     "tsdown": "0.16.5",
     "tslib": "2.8.1",
