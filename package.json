@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "2.29.8",
-    "@types/aws-lambda": "8.10.159",
+    "@types/aws-lambda": "8.10.160",
     "@types/node": "22.19.7",
     "@types/ua-parser-js": "0.7.39",
     "husky": "9.1.7",
