@@ -11,9 +11,6 @@ importers:
       '@changesets/cli':
         specifier: 2.29.8
         version: 2.29.8(@types/node@22.19.7)
-      '@types/aws-lambda':
-        specifier: 8.10.160
-        version: 8.10.160
       '@types/node':
         specifier: 22.19.7
         version: 22.19.7
@@ -48,6 +45,10 @@ importers:
   packages/bugsnag-zero: {}
 
   packages/bugsnag-zero-lambda-context:
+    dependencies:
+      '@types/aws-lambda':
+        specifier: ^8.10.160
+        version: 8.10.160
     devDependencies:
       '@birchill/bugsnag-zero':
         specifier: workspace:*

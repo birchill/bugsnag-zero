@@ -27,6 +27,9 @@
     }
   },
   "homepage": "https://github.com/birchill/bugsnag-zero/tree/main/packages/bugsnag-zero-lambda-context#readme",
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.160"
+  },
   "peerDependencies": {
     "@birchill/bugsnag-zero": "^0.8.1"
   },
