@@ -24,7 +24,7 @@
     "bracketSpacing": true
   },
   "devDependencies": {
-    "@changesets/cli": "2.29.8",
+    "@changesets/cli": "2.30.0",
     "@types/aws-lambda": "8.10.161",
     "@types/node": "22.19.13",
     "@types/ua-parser-js": "0.7.39",
