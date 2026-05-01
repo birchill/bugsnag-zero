@@ -24,7 +24,7 @@
     },
     {
       "matchPackageNames": ["node", "actions/node-versions", "@types/node"],
-      "allowedVersions": "22.x"
+      "allowedVersions": "24.x"
     }
   ]
 }
