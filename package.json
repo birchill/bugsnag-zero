@@ -29,7 +29,7 @@
   "devDependencies": {
     "@changesets/cli": "2.31.0",
     "@types/aws-lambda": "8.10.161",
-    "@types/node": "24.13.0",
+    "@types/node": "24.13.1",
     "@types/ua-parser-js": "0.7.39",
     "husky": "9.1.7",
     "lint-staged": "17.0.7",
