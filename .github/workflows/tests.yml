@@ -12,7 +12,7 @@ jobs:
         with:
           version: 11
 
-      - uses: actions/setup-node@v6.4.0
+      - uses: actions/setup-node@v6.5.0
         with:
           cache: pnpm
           node-version: 24
