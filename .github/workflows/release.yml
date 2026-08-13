@@ -39,10 +39,10 @@ jobs:
           CI: true
 
       - name: Create/update pull request or publish
-        uses: changesets/action@v2.0.0
+        uses: changesets/action@v2
         with:
-          commit: 'chore(release): publish'
-          title: 'Publish next version'
-          publish: pnpm release
+          commit-message: 'chore(release): publish'
+          pr-title: 'Publish next version'
+          publish-script: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
