@@ -1,4 +1,4 @@
-import { ExtendedClientApi, Plugin } from './client';
+import type { ExtendedClientApi, Plugin } from './client';
 import { isObject } from './is-object';
 
 // Unlike the official bugsnag JS client this does NOT cover XHR.

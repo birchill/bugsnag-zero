@@ -46,7 +46,7 @@ function filter({
   key: string | number;
   value: unknown;
   replacer?: Replacer | null;
-  seen: unknown[];
+  seen: Array<unknown>;
   depth: number;
   depthLimit?: number;
   edgeIndex: number;
@@ -84,11 +84,11 @@ function filter({
   seen.push(value);
 
   if (Array.isArray(replacement)) {
-    const copy: unknown[] = [];
+    const copy: Array<unknown> = [];
     const limit = Math.min(replacement.length, edgesLimit);
 
     for (let i = 0; i < limit; i++) {
-      const item = safeAccess(() => (replacement as unknown[])[i]);
+      const item = safeAccess(() => (replacement as Array<unknown>)[i]);
 
       copy.push(
         filter({

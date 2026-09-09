@@ -1,5 +1,5 @@
-import { OnErrorCallback, Plugin } from './client';
-import { User } from './event';
+import type { OnErrorCallback, Plugin } from './client';
+import type { User } from './event';
 
 export interface Config {
   apiKey: string;
@@ -8,7 +8,7 @@ export interface Config {
   appType?: string;
   // context?: string;
   collectUserIp?: false;
-  enabledReleaseStages?: string[] | null;
+  enabledReleaseStages?: Array<string> | null;
   // We don't support sessions
   endpoints?: { notify: string };
   generateAnonymousId?: false;
@@ -16,8 +16,8 @@ export interface Config {
   maxBreadcrumbs?: number;
   // metadata?: { [key: string]: any };
   // onBreadcrumb?: OnBreadcrumbCallback | OnBreadcrumbCallback[];
-  onError?: OnErrorCallback | OnErrorCallback[];
-  plugins?: Plugin[];
+  onError?: OnErrorCallback | Array<OnErrorCallback>;
+  plugins?: Array<Plugin>;
   releaseStage?: string;
   // trackInlineScripts?: boolean;
   user?: User | null;

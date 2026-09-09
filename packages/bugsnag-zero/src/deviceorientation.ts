@@ -1,5 +1,5 @@
-import { ExtendedClientApi, Plugin } from './client';
-import { BugsnagEvent, DeviceOrientation } from './event';
+import type { ExtendedClientApi, Plugin } from './client';
+import type { BugsnagEvent, DeviceOrientation } from './event';
 
 export const deviceOrientation: Plugin = {
   name: 'deviceOrientation',

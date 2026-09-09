@@ -1,4 +1,4 @@
-import { ExtendedClientApi, Plugin } from './client';
+import type { ExtendedClientApi, Plugin } from './client';
 
 export const consoleBreadcrumbs: Plugin = {
   name: 'consoleBreadcrumbs',

@@ -1,5 +1,5 @@
-import { ExtendedClientApi, Plugin } from './client';
-import { BugsnagEvent } from './event';
+import type { ExtendedClientApi, Plugin } from './client';
+import type { BugsnagEvent } from './event';
 
 let appStart = Date.now();
 const reset = () => {

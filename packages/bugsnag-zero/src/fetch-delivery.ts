@@ -1,5 +1,5 @@
-import { Delivery, EventForDelivery, ExtendedClientApi } from './client';
-import { Notifier } from './notifier';
+import type { Delivery, EventForDelivery, ExtendedClientApi } from './client';
+import type { Notifier } from './notifier';
 
 export class FetchDelivery implements Delivery {
   constructor(private client: ExtendedClientApi) {}

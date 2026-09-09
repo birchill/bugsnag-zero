@@ -1,4 +1,4 @@
-import { ExtendedClientApi, Plugin } from './client';
+import type { ExtendedClientApi, Plugin } from './client';
 
 export const navigationBreadcrumbs: Plugin = {
   name: 'navigationBreadcrumbs',
@@ -102,7 +102,7 @@ function wrapHistoryFn({
   win: Window;
 }) {
   const orig = target[fn];
-  target[fn] = (state: any, title: string, url?: string | null | undefined) => {
+  target[fn] = (state: any, title: string, url?: string | null) => {
     leaveBreadcrumb(
       `History ${fn}`,
       stateChangeToMetadata({ win, state, title, url }),

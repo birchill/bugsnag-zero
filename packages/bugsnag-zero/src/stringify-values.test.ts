@@ -40,7 +40,7 @@ describe('stringifyValues', () => {
       originalError: new Error('test'),
     } satisfies BugsnagEvent;
 
-    callbacks[0](event);
+    void callbacks[0](event);
 
     expect(event).toEqual({
       exceptions: [],

@@ -46,7 +46,7 @@ export function parseUserAgent(userAgent: string): UserAgentInfo {
 }
 
 type UserAgentRule = [string, RegExp];
-const userAgentRules: UserAgentRule[] = [
+const userAgentRules: Array<UserAgentRule> = [
   ['Edge (EdgeHTML)', /Edge\/([0-9._]+)/],
   ['Edge (iOS)', /EdgiOS\/([0-9._]+)/],
   ['Yandex', /YaBrowser\/([0-9._]+)/],
@@ -98,7 +98,7 @@ function matchUserAgent(userAgent: string): UserAgentMatch {
 
 type OperatingSystemRule = [string, string | undefined, RegExp];
 
-const operatingSystemRules: OperatingSystemRule[] = [
+const operatingSystemRules: Array<OperatingSystemRule> = [
   ['iOS', undefined, /iP(hone|od|ad)/],
   ['Android', undefined, /Android/],
   ['BlackBerry', undefined, /BlackBerry|BB10/],

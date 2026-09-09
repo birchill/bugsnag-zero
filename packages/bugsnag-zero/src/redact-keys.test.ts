@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { redactEvent } from './redact-keys';
-import { BugsnagEvent } from './event';
+import type { BugsnagEvent } from './event';
 
 describe('redactEvent', () => {
   it('redacts keys from certain parts of the event', () => {

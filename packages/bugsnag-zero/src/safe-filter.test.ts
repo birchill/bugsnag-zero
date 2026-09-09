@@ -104,14 +104,14 @@ describe('safeFilter', () => {
   });
 
   it('replaces circular arrays', () => {
-    const input: any[] = [];
+    const input: Array<any> = [];
     input.push(input, input);
 
     expect(filter(input)).toEqual([CircularReference, CircularReference]);
   });
 
   it('replaces nested circular arrays', () => {
-    const input: any[] = [];
+    const input: Array<any> = [];
     input.push(
       { name: 'Jon Snow', bastards: input },
       { name: 'Ramsay Bolton', bastards: input }

@@ -1,5 +1,5 @@
-import { ExtendedClientApi, Plugin } from './client';
-import { BugsnagEvent } from './event';
+import type { ExtendedClientApi, Plugin } from './client';
+import type { BugsnagEvent } from './event';
 
 export const errorBreadcrumbs: Plugin = {
   name: 'errorBreadcrumbs',
