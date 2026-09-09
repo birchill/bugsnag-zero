@@ -22,8 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-const objectToString = Object.prototype.toString;
-const getPrototypeOf = Object.getPrototypeOf;
+const objectToString = (value: unknown) =>
+  Object.prototype.toString.call(value);
 const ERROR_TYPE = '[object Error]';
 
 export function isError(a: unknown): a is Error {
@@ -37,10 +37,10 @@ export function isError(a: unknown): a is Error {
 
   let err = a;
   while (err) {
-    if (objectToString.call(err) === ERROR_TYPE) {
+    if (objectToString(err) === ERROR_TYPE) {
       return true;
     }
-    err = getPrototypeOf(err);
+    err = Object.getPrototypeOf(err);
   }
 
   return false;

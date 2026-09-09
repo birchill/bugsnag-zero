@@ -250,7 +250,7 @@ export const lambdaContextWithUaParser = (
               );
               originalError.name = 'LambdaTimeoutApproaching';
               executionTimeout = setTimeout(() => {
-                client.notifyEvent(
+                void client.notifyEvent(
                   {
                     exceptions: toExceptions(originalError, 'notify')
                       .exceptions,

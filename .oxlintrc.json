@@ -1,3 +1,25 @@
 {
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": { "correctness": "error" },
+  "options": { "typeAware": true },
+  "rules": {
+    "curly": "error",
+    "no-unused-vars": "off",
+    "typescript/array-type": ["error", { "default": "generic" }],
+    "typescript/consistent-type-imports": [
+      "error",
+      { "prefer": "type-imports" }
+    ],
+    "typescript/no-floating-promises": ["warn", { "ignoreIIFE": false }],
+    "typescript/no-misused-promises": ["warn", { "checksVoidReturn": false }],
+    "typescript/no-misused-spread": [
+      "error",
+      { "allow": [{ "from": "lib", "name": "string" }] }
+    ],
+    "typescript/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    ]
+  },
   "ignorePatterns": ["dist"]
 }

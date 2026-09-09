@@ -1,7 +1,7 @@
 import type { ExtendedClientApi, Plugin } from './client';
 import type { BugsnagException } from './event';
 import { toExceptions } from './to-exceptions';
-import { NonEmptyArray } from './type-helpers';
+import type { NonEmptyArray } from './type-helpers';
 
 export const browserNotifyUnhandledExceptions: Plugin = {
   name: 'browserNotifyUnhandledExceptions',
@@ -42,7 +42,7 @@ export const browserNotifyUnhandledExceptions: Plugin = {
         ({ exceptions, metadata } = toExceptions(evt, 'window onerror'));
       }
 
-      client.notifyEvent(
+      void client.notifyEvent(
         {
           exceptions,
           unhandled: true,

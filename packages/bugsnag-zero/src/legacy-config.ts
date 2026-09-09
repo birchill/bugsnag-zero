@@ -1,6 +1,6 @@
-import { OnErrorCallback, Plugin } from './client';
-import { Config } from './config';
-import { BreadcrumbType } from './event';
+import type { OnErrorCallback, Plugin } from './client';
+import type { Config } from './config';
+import type { BreadcrumbType } from './event';
 
 // Auto-detect errors
 import { browserNotifyUnhandledExceptions } from './browser-unhandled-exceptions';
@@ -33,8 +33,8 @@ export interface LegacyConfig {
     unhandledExceptions?: boolean;
     unhandledRejections?: boolean;
   };
-  enabledBreadcrumbTypes?: BreadcrumbType[] | null;
-  enabledReleaseStages?: string[] | null;
+  enabledBreadcrumbTypes?: Array<BreadcrumbType> | null;
+  enabledReleaseStages?: Array<string> | null;
   endpoints?: { notify: string; sessions: string };
   generateAnonymousId?: false;
   // Loggers are not supported
@@ -43,10 +43,10 @@ export interface LegacyConfig {
   maxBreadcrumbs?: number;
   // metadata?: { [key: string]: any };
   // onBreadcrumb?: OnBreadcrumbCallback | OnBreadcrumbCallback[];
-  onError?: OnErrorCallback | OnErrorCallback[];
+  onError?: OnErrorCallback | Array<OnErrorCallback>;
   // Sessions are not supported
   onSession?: [];
-  plugins?: Plugin[];
+  plugins?: Array<Plugin>;
   // RegExps for redacted keys are not supported
   redactedKeys?: Array<string>;
   releaseStage?: string;

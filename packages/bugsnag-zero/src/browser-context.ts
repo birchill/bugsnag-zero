@@ -1,5 +1,5 @@
-import { ExtendedClientApi, Plugin } from './client';
-import { BugsnagEvent } from './event';
+import type { ExtendedClientApi, Plugin } from './client';
+import type { BugsnagEvent } from './event';
 import { parseUserAgent } from './simple-ua-parser';
 import type { UserAgentParserFn } from './user-agent-types';
 

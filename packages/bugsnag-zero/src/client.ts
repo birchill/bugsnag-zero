@@ -1,5 +1,5 @@
-import { BreadcrumbType, BugsnagEvent, User } from './event';
-import { Notifier } from './notifier';
+import type { BreadcrumbType, BugsnagEvent, User } from './event';
+import type { Notifier } from './notifier';
 
 export interface Client {
   // This deviates from the official bugsnag client in that as an alternative

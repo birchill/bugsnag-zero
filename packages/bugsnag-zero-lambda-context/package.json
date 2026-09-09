@@ -10,7 +10,8 @@
   "author": "Birchill, Inc.",
   "license": "MIT",
   "scripts": {
-    "build": "tsdown"
+    "build": "tsdown",
+    "lint": "oxlint"
   },
   "files": [
     "dist/**",

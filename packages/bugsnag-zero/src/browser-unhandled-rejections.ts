@@ -1,4 +1,4 @@
-import { ExtendedClientApi, Plugin } from './client';
+import type { ExtendedClientApi, Plugin } from './client';
 import { toExceptions } from './to-exceptions';
 
 export const browserNotifyUnhandledRejections: Plugin = {
@@ -21,7 +21,7 @@ export const browserNotifyUnhandledRejections: Plugin = {
         // I don't understand this. Surely we'll have the same information in
         // our exception object already?
 
-        client.notifyEvent(
+        void client.notifyEvent(
           {
             exceptions,
             unhandled: true,

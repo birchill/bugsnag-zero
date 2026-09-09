@@ -1,4 +1,4 @@
-import { ExtendedClientApi, OnErrorCallback, Plugin } from './client';
+import type { ExtendedClientApi, OnErrorCallback, Plugin } from './client';
 import { toExceptions } from './to-exceptions';
 
 // ------------------------------------------------------------------------
@@ -85,7 +85,7 @@ type CreateElementFunc<
 type ClassComponentType<
   P = Record<string, any>,
   S = Record<string, any>,
-> = abstract new (...args: any[]) => ClassComponent<P, S>;
+> = abstract new (...args: Array<any>) => ClassComponent<P, S>;
 
 interface ClassComponent<P = Record<string, any>, S = Record<string, any>> {
   setState: <K extends keyof S>(
@@ -113,18 +113,17 @@ function createClass<ComponentType, Element, ErrorBoundaryComponent>(
   createElement: CreateElementFunc<Record<string, any>, ComponentType, Element>
 ): ErrorBoundaryComponent {
   abstract class BugsnagErrorBoundaryComponent extends component {
-    constructor(...args: any[]) {
+    constructor(...args: Array<any>) {
       super(...args);
       this.state = {
         error: undefined,
         info: undefined,
       };
-      this.handleClearError = this.handleClearError.bind(this);
     }
 
-    handleClearError() {
+    handleClearError = () => {
       this.setState({ error: undefined, info: undefined });
-    }
+    };
 
     componentDidCatch(error: Error, info?: ErrorInfo) {
       const { exceptions, metadata } = toExceptions(error, 'notify');
@@ -132,7 +131,7 @@ function createClass<ComponentType, Element, ErrorBoundaryComponent>(
         info.componentStack = formatComponentStack(info.componentStack);
       }
       const { onError } = this.props;
-      client.notifyEvent(
+      void client.notifyEvent(
         {
           exceptions,
           unhandled: true,
@@ -172,7 +171,9 @@ function formatComponentStack(str: string): string {
   const lines = str.split(/\s*\n\s*/g);
   let ret = '';
   for (let line = 0, len = lines.length; line < len; line++) {
-    if (lines[line].length) ret += `${ret.length ? '\n' : ''}${lines[line]}`;
+    if (lines[line].length) {
+      ret += `${ret.length ? '\n' : ''}${lines[line]}`;
+    }
   }
   return ret;
 }

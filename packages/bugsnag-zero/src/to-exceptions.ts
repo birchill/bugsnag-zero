@@ -2,7 +2,7 @@ import type { BugsnagException, StackFrame } from './event';
 import { isError } from './is-error';
 import { isObject } from './is-object';
 import { parseStack } from './parse-stack';
-import { NonEmptyArray } from './type-helpers';
+import type { NonEmptyArray } from './type-helpers';
 
 export function toExceptions(
   maybeError: unknown,

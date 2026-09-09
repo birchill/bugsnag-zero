@@ -1,4 +1,4 @@
-import {
+import type {
   Client,
   Delivery,
   EventForDelivery,
@@ -7,14 +7,16 @@ import {
   OnPostErrorCallback,
   PartialEvent,
 } from './client';
-import { Config } from './config';
-import { Breadcrumb, BreadcrumbType, BugsnagEvent, User } from './event';
+import type { Config } from './config';
+import type { Breadcrumb, BreadcrumbType, BugsnagEvent, User } from './event';
 import { FetchDelivery } from './fetch-delivery';
-import { Notifier } from './notifier';
+import type { Notifier } from './notifier';
+import type { RedactKeysPluginResult } from './redact-keys';
+import type { ReactPluginResult } from './react';
 import { safeFilter } from './safe-filter';
 import { toExceptions } from './to-exceptions';
 
-// eslint-disable-next-line typescript-eslint(no-unsafe-declaration-merging)
+// oxlint-disable-next-line typescript/no-unsafe-declaration-merging
 export class BugsnagStatic implements ExtendedClientApi {
   private breadcrumbs: Array<Breadcrumb> = [];
   private config: Config | undefined;
@@ -370,9 +372,7 @@ export { parseUserAgent } from './simple-ua-parser';
 export { toExceptions };
 
 export interface BugsnagStatic {
-  getPlugin(id: 'react'): import('./react').ReactPluginResult | undefined;
-  getPlugin(
-    id: 'redactKeys'
-  ): import('./redact-keys').RedactKeysPluginResult | undefined;
+  getPlugin(id: 'react'): ReactPluginResult | undefined;
+  getPlugin(id: 'redactKeys'): RedactKeysPluginResult | undefined;
   getPlugin(id: string): unknown;
 }

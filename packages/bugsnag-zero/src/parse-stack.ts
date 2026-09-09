@@ -1,4 +1,4 @@
-import { StackFrame } from './event';
+import type { StackFrame } from './event';
 
 // The following code is based on:
 //
@@ -38,7 +38,7 @@ export function parseStack(stackString: string): Array<StackFrame> {
     ? parseV8OrIE(stackString)
     : parseFFOrSafari(stackString);
 
-  return partialResult.reduce<StackFrame[]>((result, stack) => {
+  return partialResult.reduce<Array<StackFrame>>((result, stack) => {
     // Drop empty stack frames
     if (JSON.stringify(stack) === '{}') {
       return result;

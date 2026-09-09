@@ -1,4 +1,4 @@
-import { ExtendedClientApi, Plugin } from './client';
+import type { ExtendedClientApi, Plugin } from './client';
 import { toExceptions } from './to-exceptions';
 
 export const nodeNotifyUnhandledExceptions: Plugin = {
@@ -7,7 +7,7 @@ export const nodeNotifyUnhandledExceptions: Plugin = {
     process.on('uncaughtException', (error: Error, origin: string) => {
       const { exceptions, metadata } = toExceptions(error, 'uncaughtException');
 
-      client.notifyEvent(
+      void client.notifyEvent(
         {
           exceptions,
           unhandled: true,
