@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "3.0.2",
-    "@types/node": "24.13.3",
+    "@types/node": "24.13.4",
     "@types/ua-parser-js": "0.7.39",
     "husky": "9.1.7",
     "nano-staged": "1.0.2",
