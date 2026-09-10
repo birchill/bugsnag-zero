@@ -9,15 +9,6 @@
     "release": "pnpm -r build && pnpm changeset publish",
     "prepare": "husky"
   },
-  "lint-staged": {
-    "*.md": [
-      "prettier --write"
-    ],
-    "*.{js,ts}": [
-      "oxlint",
-      "prettier --write"
-    ]
-  },
   "prettier": {
     "singleQuote": true,
     "trailingComma": "es5",
@@ -31,7 +22,7 @@
     "@types/node": "24.13.3",
     "@types/ua-parser-js": "0.7.39",
     "husky": "9.1.7",
-    "lint-staged": "17.5.0",
+    "nano-staged": "1.0.2",
     "oxlint": "1.82.0",
     "oxlint-tsgolint": "7.0.2001",
     "prettier": "3.9.6",
