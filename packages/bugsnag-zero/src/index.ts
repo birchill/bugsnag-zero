@@ -89,7 +89,7 @@ export class BugsnagStatic implements ExtendedClientApi {
         }
       }
 
-      return await this.notifyEvent(
+      return this.notifyEvent(
         {
           exceptions,
           metadata,
@@ -199,7 +199,7 @@ export class BugsnagStatic implements ExtendedClientApi {
 
     const event: BugsnagEvent = {
       exceptions,
-      breadcrumbs: this.breadcrumbs.length ? [...this.breadcrumbs] : undefined,
+      breadcrumbs: this.breadcrumbs.length ? this.breadcrumbs : undefined,
       originalError,
       unhandled: typeof unhandled !== 'boolean' ? false : unhandled,
       severity: severity || 'warning',

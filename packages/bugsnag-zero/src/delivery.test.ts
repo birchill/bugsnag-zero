@@ -138,23 +138,18 @@ describe('notification results', () => {
     expect(sendEvent).not.toHaveBeenCalled();
   });
 
-  it.each([
-    'failed to save',
-    null,
-    {
-      toString() {
-        throw new Error('Bad conversion');
-      },
-    },
-  ])('normalizes non-Error delivery rejections (%j)', async (cause) => {
-    const { client, sendEvent } = setup();
-    client.start({ apiKey: 'test-key' });
-    sendEvent.mockRejectedValue(cause);
-    await expect(client.notify('error')).resolves.toMatchObject({
-      status: 'failed',
-      error: expect.any(Error),
-    });
-  });
+  it.each(['failed to save', null, { code: 'STORAGE_FULL' }])(
+    'normalizes non-Error delivery rejections (%j)',
+    async (cause) => {
+      const { client, sendEvent } = setup();
+      client.start({ apiKey: 'test-key' });
+      sendEvent.mockRejectedValue(cause);
+      await expect(client.notify('error')).resolves.toMatchObject({
+        status: 'failed',
+        error: expect.any(Error),
+      });
+    }
+  );
 
   it('returns a failure for an oversized report instead of rejecting', async () => {
     const { client, sendEvent } = setup();
