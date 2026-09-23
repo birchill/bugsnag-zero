@@ -13,7 +13,10 @@ export interface Client {
           severity?: BugsnagEvent['severity'];
         }
       | OnErrorCallback
-  ): Promise<void>;
+  ): Promise<NotifyResult>;
+
+  /** Replace the delivery implementation, including before starting the client. */
+  setDelivery(delivery: Delivery): void;
 
   // breadcrumbs
   leaveBreadcrumb(
@@ -91,20 +94,46 @@ export type Plugin = {
 
 export type EventForDelivery = Omit<BugsnagEvent, 'originalError'>;
 
+/** The outcome of preparing and delivering a report. Reporting failures resolve. */
+export type NotifyResult =
+  /** Accepted by the delivery destination; not confirmation of processing. */
+  | { status: 'sent' }
+  /** Persisted by custom delivery. The SDK does not schedule retries. */
+  | { status: 'stored' }
+  /** Core reasons: not-started, disabled, callback. Custom delivery may add others. */
+  | { status: 'skipped'; reason: string }
+  /** Preparation or delivery failed. HTTP failures also include statusCode. */
+  | { status: 'failed'; error: Error; statusCode?: number };
+
+/**
+ * A detached JSON-compatible snapshot, ready for delivery or persistence.
+ * Contains the configured API key but no original Error object. Sending this
+ * payload again preserves its event timestamps, app version, and breadcrumbs.
+ */
+export type DeliveryPayload = {
+  apiKey: string;
+  events: Array<EventForDelivery>;
+  notifier: Notifier;
+  payloadVersion: string;
+};
+
 export type Delivery = {
-  sendEvent(params: {
-    apiKey: string;
-    events: Array<EventForDelivery>;
-    notifier: Notifier;
-    payloadVersion: string;
-  }): Promise<void>;
+  /**
+   * Resolve once the request has completed or persistence has succeeded.
+   * `stored` does not imply that the SDK will retry delivery.
+   * Custom implementations may throw; notify converts failures into results.
+   */
+  sendEvent(payload: DeliveryPayload): Promise<NotifyResult>;
 };
 
 // Internal API for plugins
 
 export interface ExtendedClientApi extends Client {
   readonly endpoints: Readonly<{ notify: string }>;
-  notifyEvent(event: PartialEvent, originalError: unknown): Promise<void>;
+  notifyEvent(
+    event: PartialEvent,
+    originalError: unknown
+  ): Promise<NotifyResult>;
 }
 
 export type PartialEvent = {

@@ -1,41 +1,44 @@
-import type { Delivery, EventForDelivery, ExtendedClientApi } from './client';
-import type { Notifier } from './notifier';
+import type {
+  Delivery,
+  DeliveryPayload,
+  ExtendedClientApi,
+  NotifyResult,
+} from './client';
+import { notifyFailure } from './notify-failure';
 
 export class FetchDelivery implements Delivery {
-  constructor(private client: ExtendedClientApi) {}
+  constructor(private client: Pick<ExtendedClientApi, 'endpoints'>) {}
 
-  async sendEvent({
-    apiKey,
-    events,
-    notifier,
-    payloadVersion,
-  }: {
-    apiKey: string;
-    events: Array<EventForDelivery>;
-    notifier: Notifier;
-    payloadVersion: string;
-  }): Promise<void> {
-    const sentAt = new Date().toISOString();
+  /** Send a prepared or restored payload without running event callbacks again. */
+  async sendEvent(payload: DeliveryPayload): Promise<NotifyResult> {
+    try {
+      const response = await fetch(this.client.endpoints.notify, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'omit',
+        headers: {
+          'Content-Type': 'application/json',
+          'Bugsnag-Api-Key': payload.apiKey,
+          'Bugsnag-Payload-Version': payload.payloadVersion,
+          'Bugsnag-Sent-At': new Date().toISOString(),
+        },
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(payload),
+      });
 
-    const body = JSON.stringify({
-      apiKey,
-      payloadVersion,
-      notifier,
-      events,
-    });
+      if (!response.ok) {
+        return {
+          status: 'failed',
+          error: new Error(
+            `Bugsnag request failed with status ${response.status}`
+          ),
+          statusCode: response.status,
+        };
+      }
 
-    await fetch(this.client.endpoints.notify, {
-      method: 'POST',
-      mode: 'cors',
-      credentials: 'omit',
-      headers: {
-        'Content-Type': 'application/json',
-        'Bugsnag-Api-Key': apiKey,
-        'Bugsnag-Payload-Version': payloadVersion,
-        'Bugsnag-Sent-At': sentAt,
-      },
-      referrerPolicy: 'no-referrer',
-      body,
-    });
+      return { status: 'sent' };
+    } catch (error) {
+      return notifyFailure(error);
+    }
   }
 }
