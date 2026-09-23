@@ -156,20 +156,6 @@ describe('notification results', () => {
     });
   });
 
-  it('does not reject even if the console error logger throws', async () => {
-    const { client, sendEvent } = setup();
-    const error = new Error('Failed to send');
-    client.start({ apiKey: 'test-key' });
-    sendEvent.mockRejectedValue(error);
-    vi.mocked(console.error).mockImplementation(() => {
-      throw new Error('Logger failed');
-    });
-    await expect(client.notify('error')).resolves.toEqual({
-      status: 'failed',
-      error,
-    });
-  });
-
   it('returns a failure for an oversized report instead of rejecting', async () => {
     const { client, sendEvent } = setup();
     client.start({ apiKey: 'test-key' });

@@ -160,11 +160,7 @@ export class BugsnagStatic implements ExtendedClientApi {
 
   private reportResult(result: NotifyResult): NotifyResult {
     if (result.status === 'failed') {
-      try {
-        console.error('Failed to report error to Bugsnag', result.error);
-      } catch {
-        // A custom console implementation must not cause reporting to reject.
-      }
+      console.error('Failed to report error to Bugsnag', result.error);
     }
 
     return result;
