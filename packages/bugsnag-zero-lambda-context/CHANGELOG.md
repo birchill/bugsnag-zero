@@ -1,5 +1,13 @@
 # @birchill/bugsnag-zero-lambda-context
 
+## 0.8.3
+
+### Patch Changes
+
+- fcef794: Allow use with `@birchill/bugsnag-zero` 1.x while retaining compatibility with 0.8.x.
+- Updated dependencies [fcef794]
+  - @birchill/bugsnag-zero@1.0.0
+
 ## 0.8.2
 
 ### Patch Changes
