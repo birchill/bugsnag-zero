@@ -1,6 +1,6 @@
 {
   "name": "@birchill/bugsnag-zero-lambda-context",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "Bugsnag zero plugin for capturing AWS Lambda context",
   "repository": {
     "type": "git",
@@ -32,7 +32,7 @@
     "@types/aws-lambda": "^8.10.162"
   },
   "peerDependencies": {
-    "@birchill/bugsnag-zero": "^0.8.1 || ^1.0.0"
+    "@birchill/bugsnag-zero": "^1.0.0"
   },
   "devDependencies": {
     "@birchill/bugsnag-zero": "workspace:*"
