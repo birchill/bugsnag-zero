@@ -1,8 +1,10 @@
 import type {
   Client,
   Delivery,
+  DeliveryPayload,
   EventForDelivery,
   ExtendedClientApi,
+  NotifyResult,
   OnErrorCallback,
   OnPostErrorCallback,
   PartialEvent,
@@ -11,6 +13,7 @@ import type { Config } from './config';
 import type { Breadcrumb, BreadcrumbType, BugsnagEvent, User } from './event';
 import { FetchDelivery } from './fetch-delivery';
 import type { Notifier } from './notifier';
+import { notifyFailure } from './notify-failure';
 import type { RedactKeysPluginResult } from './redact-keys';
 import type { ReactPluginResult } from './react';
 import { safeFilter } from './safe-filter';
@@ -62,7 +65,7 @@ export class BugsnagStatic implements ExtendedClientApi {
     };
   }
 
-  notify<ErrorType = unknown>(
+  async notify<ErrorType = unknown>(
     error: ErrorType,
     options:
       | {
@@ -70,30 +73,34 @@ export class BugsnagStatic implements ExtendedClientApi {
           severity?: BugsnagEvent['severity'];
         }
       | OnErrorCallback = {}
-  ): Promise<void> {
-    let { exceptions, metadata } = toExceptions(error, 'notify');
+  ): Promise<NotifyResult> {
+    try {
+      let { exceptions, metadata } = toExceptions(error, 'notify');
 
-    let onError: OnErrorCallback | undefined;
-    let severity: BugsnagEvent['severity'] | undefined;
+      let onError: OnErrorCallback | undefined;
+      let severity: BugsnagEvent['severity'] | undefined;
 
-    if (typeof options === 'function') {
-      onError = options;
-    } else {
-      severity = options.severity;
-      if (options.metadata) {
-        metadata = { ...metadata, ...options.metadata };
+      if (typeof options === 'function') {
+        onError = options;
+      } else {
+        severity = options.severity;
+        if (options.metadata) {
+          metadata = { ...metadata, ...options.metadata };
+        }
       }
-    }
 
-    return this.notifyEvent(
-      {
-        exceptions,
-        metadata,
-        severity,
-        onError,
-      },
-      error
-    );
+      return this.notifyEvent(
+        {
+          exceptions,
+          metadata,
+          severity,
+          onError,
+        },
+        error
+      );
+    } catch (error) {
+      return this.reportResult(notifyFailure(error));
+    }
   }
 
   leaveBreadcrumb(
@@ -139,6 +146,27 @@ export class BugsnagStatic implements ExtendedClientApi {
   }
 
   async notifyEvent(
+    event: PartialEvent,
+    originalError: unknown
+  ): Promise<NotifyResult> {
+    try {
+      return this.reportResult(
+        await this.prepareAndDeliver(event, originalError)
+      );
+    } catch (error) {
+      return this.reportResult(notifyFailure(error));
+    }
+  }
+
+  private reportResult(result: NotifyResult): NotifyResult {
+    if (result.status === 'failed') {
+      console.error('Failed to report error to Bugsnag', result.error);
+    }
+
+    return result;
+  }
+
+  private async prepareAndDeliver(
     {
       exceptions,
       unhandled,
@@ -148,7 +176,7 @@ export class BugsnagStatic implements ExtendedClientApi {
       onError,
     }: PartialEvent,
     originalError: unknown
-  ): Promise<void> {
+  ): Promise<NotifyResult> {
     if (!this.config) {
       // The official bugsnag client will produce a console eror in this case
       // but that's annoying since often unit tests will exercise code that
@@ -157,7 +185,7 @@ export class BugsnagStatic implements ExtendedClientApi {
       // (a) wrap each call to bugsnag in an "isTest" conditional, or
       // (b) ensure the bugsnag client is initialized at the start of each
       //     test
-      return;
+      return { status: 'skipped', reason: 'not-started' };
     }
 
     // Check if the current release stage is enabled
@@ -166,7 +194,7 @@ export class BugsnagStatic implements ExtendedClientApi {
       this.config.enabledReleaseStages &&
       !this.config.enabledReleaseStages.includes(releaseStage)
     ) {
-      return;
+      return { status: 'skipped', reason: 'disabled' };
     }
 
     const event: BugsnagEvent = {
@@ -212,7 +240,7 @@ export class BugsnagStatic implements ExtendedClientApi {
     for (const callback of errorCallbacks) {
       const callbackResult = await callback(event);
       if (callbackResult === false) {
-        return;
+        return { status: 'skipped', reason: 'callback' };
       }
     }
 
@@ -234,7 +262,7 @@ export class BugsnagStatic implements ExtendedClientApi {
     ) as EventForDelivery;
 
     let body: string;
-    const payload = {
+    const payload: DeliveryPayload = {
       apiKey: this.config.apiKey,
       payloadVersion: '5',
       notifier,
@@ -262,6 +290,11 @@ export class BugsnagStatic implements ExtendedClientApi {
       }
     }
 
+    // Use the exact serialized representation as the delivery snapshot. This
+    // removes non-JSON values and prevents later callbacks or callers from
+    // changing the payload through references to the live event.
+    const snapshot: DeliveryPayload = JSON.parse(body);
+
     // Although it's called "post error" we run these callbacks before we
     // actually send the event over the network since sending is async and if
     // the callback is logging the fact that an error was recorded then we want
@@ -271,11 +304,7 @@ export class BugsnagStatic implements ExtendedClientApi {
       callback(event);
     }
 
-    try {
-      await this.delivery.sendEvent(payload);
-    } catch (e) {
-      console.error('Failed to post report to Bugsnag', e);
-    }
+    return this.delivery.sendEvent(snapshot);
   }
 
   getUser(): User {
@@ -310,7 +339,7 @@ export class BugsnagStatic implements ExtendedClientApi {
     return this.plugins.find((plugin) => plugin.name === name)?.plugin;
   }
 
-  setDelivery(delivery: Delivery) {
+  setDelivery(delivery: Delivery): void {
     this.delivery = delivery;
   }
 }
@@ -321,8 +350,11 @@ export default Bugsnag;
 export type {
   Client,
   Delivery,
+  DeliveryPayload,
+  EventForDelivery,
   ExtendedClientApi,
   NotifiableError,
+  NotifyResult,
   Plugin,
 } from './client';
 export type { Config } from './config';

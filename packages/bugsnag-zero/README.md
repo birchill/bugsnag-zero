@@ -36,8 +36,8 @@ On the other hand, it adds a few other features:
 
 - The ability to substitute in custom delivery providers (e.g. so you can send
   to an SNS topic).
-- `Bugsnag.notify()` returns a Promise so you can wait on it to ensure delivery
-  was successful.
+- `Bugsnag.notify()` returns a Promise with a result so you can wait for delivery
+  and check whether it succeeded.
 - `Bugsnag.notify()` can take `metadata` and `severity` settings as a object
   rather than you having to provide an on-error callback (see below).
 - If an `Error` object has a `metadata` field, it will be merged into the
@@ -137,6 +137,102 @@ argument.
 It is, of course, still possible to pass an error callback as per the official
 client's API.
 
+### Notification results
+
+`notify()` returns `Promise<NotifyResult>`. Awaiting it waits for report
+preparation and delivery to finish; inspect the result to determine the outcome:
+
+```typescript
+const result = await Bugsnag.notify(error);
+if (result.status === 'failed') {
+  console.warn('Could not deliver report', result.error, result.statusCode);
+}
+```
+
+| Status    | Meaning                                                                                                                                                                           |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sent`    | The delivery destination accepted the request. With `FetchDelivery`, this means an HTTP 2xx response, not confirmation that Bugsnag has processed the report.                     |
+| `stored`  | A custom delivery implementation successfully saved the report. The SDK does not queue reports or retry them.                                                                     |
+| `skipped` | No report was delivered. `reason` is `not-started`, `disabled` (release stage), or `callback` (an `onError` callback returned `false`). Custom delivery can supply other reasons. |
+| `failed`  | Preparation or delivery failed. `error` is an `Error`; `statusCode` is also supplied for an unsuccessful HTTP response from `FetchDelivery`.                                      |
+
+Reporting failures resolve to `failed` rather than rejecting, including exceptions
+from callbacks and custom delivery implementations. You can continue ignoring the
+result when reporting errors without waiting, using `void Bugsnag.notify(error)`.
+If a caller needs rejection, it can explicitly throw `result.error` when the status
+is `failed`.
+
+### Saving and sending prepared reports
+
+Custom delivery receives an exported `DeliveryPayload`: a detached JSON-compatible
+object containing the final report after `onError` callbacks, plugins, redaction,
+and payload-size checks. It excludes `originalError` and does not share mutable
+objects with the live event. The payload includes the configured API key and all
+remaining event data, so your application should decide what is appropriate to
+persist and for how long.
+
+Use `setDelivery()` before `start()` to cover reports from plugins as soon as they
+are installed. For example, with application-provided policy and storage functions:
+
+```typescript
+import Bugsnag, {
+  FetchDelivery,
+  type DeliveryPayload,
+} from '@birchill/bugsnag-zero';
+
+const network = new FetchDelivery(Bugsnag);
+
+Bugsnag.setDelivery({
+  async sendEvent(payload: DeliveryPayload) {
+    if (await shouldSendAutomatically()) {
+      return network.sendEvent(payload);
+    }
+
+    await saveReport(payload);
+    return { status: 'stored' };
+  },
+});
+
+Bugsnag.start({ apiKey: '<apiKey>' });
+```
+
+Return `stored` only after persistence succeeds. If saving throws, `notify()`
+returns `failed`. A custom delivery that declines to save or send can return
+`{ status: 'skipped', reason: 'your-reason' }`. Callback vetoes, disabled release
+stages, and reports before `start()` bypass custom delivery entirely.
+
+To send a saved report later, pass the restored `DeliveryPayload` directly to the
+network delivery, after validating it and checking the application's sending
+policy:
+
+```typescript
+const result = await network.sendEvent(savedPayload);
+if (result.status === 'sent') {
+  await deleteSavedReport(reportId);
+}
+```
+
+This preserves the original timestamp, app version, and breadcrumbs. It does not
+rerun callbacks or plugins, or check release stages; calling `notify()` again would
+create a new report instead. `FetchDelivery` uses the client's current endpoint
+and a fresh `Bugsnag-Sent-At` header, but the API key and event details come from the
+saved payload. Storage limits, deletion, replay, and retries belong to the
+application. A failed request may still have reached the server, so retrying can
+produce duplicates.
+
+#### Migrating custom delivery implementations
+
+Previously, `notify()`, the plugin API's `notifyEvent()`, and
+`Delivery.sendEvent()` returned `Promise<void>`. They now return
+`Promise<NotifyResult>`. Update explicit return types and any wrappers or mocks
+that depend on `Promise<void>`.
+
+Custom delivery implementations must return an outcome, for example
+`{ status: 'sent' }` after the destination accepts the request, or
+`{ status: 'stored' }` after persistence completes. Their payload is now the same
+JSON-compatible representation that would be sent over the network, so values
+such as `undefined` or functions are removed and dates are serialized.
+
 ### React plugin
 
 In order to allow using Preact with the React plugin and to avoid introducing a
@@ -202,7 +298,7 @@ Bugsnag.start({
 });
 
 Bugsnag.setDelivery({
-  sendEvent: async ({ events }): Promise<void> => {
+  sendEvent: async ({ events }) => {
     const errorClass = events[0].exceptions[0]?.errorClass || 'Unknown';
     const context = events[0].context;
     const subject = `Error: ${errorClass} in ${context}`;
@@ -214,6 +310,7 @@ Bugsnag.setDelivery({
     });
 
     await snsClient.send(publishCommand);
+    return { status: 'sent' };
   },
 });
 

@@ -11,7 +11,7 @@ export const redactKeys = (keys: Array<string>): Plugin => ({
   name: 'redactKeys',
   load(client: ExtendedClientApi): RedactKeysPluginResult {
     client.addOnError(function redact(event: BugsnagEvent) {
-      redactObject(event, keys);
+      redactEvent(event, keys);
     });
 
     return {
