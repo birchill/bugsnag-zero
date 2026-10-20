@@ -23,7 +23,7 @@
     "@types/ua-parser-js": "0.7.39",
     "husky": "9.1.7",
     "nano-staged": "1.0.2",
-    "oxlint": "1.88.0",
+    "oxlint": "1.89.0",
     "oxlint-tsgolint": "7.0.2004",
     "prettier": "3.9.10",
     "tsdown": "0.23.1",
