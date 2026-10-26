@@ -59,7 +59,7 @@ export class BugsnagStatic implements ExtendedClientApi {
     return this;
   }
 
-  get endpoints() {
+  get endpoints(): { notify: string } {
     return {
       notify: this.config?.endpoints?.notify || 'https://notify.bugsnag.com/',
     };
@@ -344,7 +344,7 @@ export class BugsnagStatic implements ExtendedClientApi {
   }
 }
 
-const Bugsnag = new BugsnagStatic();
+const Bugsnag: BugsnagStatic = new BugsnagStatic();
 
 export default Bugsnag;
 export type {
