@@ -24,7 +24,7 @@
     "husky": "9.1.7",
     "nano-staged": "1.0.2",
     "oxlint": "1.91.0",
-    "oxlint-tsgolint": "7.0.2005",
+    "oxlint-tsgolint": "7.0.2006",
     "prettier": "3.9.10",
     "tsdown": "0.23.5",
     "tslib": "2.9.1",
