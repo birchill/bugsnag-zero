@@ -30,8 +30,8 @@ importers:
         specifier: 7.0.2006
         version: 7.0.2006
       prettier:
-        specifier: 3.10.0
-        version: 3.10.0
+        specifier: 3.10.1
+        version: 3.10.1
       tsdown:
         specifier: 0.23.7
         version: 0.23.7(typescript@7.0.2)(unrun@0.2.24(@emnapi/core@2.0.0-beta.2)(@emnapi/runtime@2.0.0-beta.2))
@@ -1127,8 +1127,8 @@ packages:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
     engines: {node: ^10 || ^12 || >=14}
 
-  prettier@3.10.0:
-    resolution: {integrity: sha512-mBi4765LgjO1PFjlEs7pUeK0nb1bw71c+N4/ItfeUWNdY5cV2pRKaFpbbFRYmDJMO+5ZwzGxHRqHxFZna7iv5w==}
+  prettier@3.10.1:
+    resolution: {integrity: sha512-70vp3ZUYoPlFbF9uiTdXHUUCGEIp7d4+6p+8DYbkm2jP7x/3i/paXVF6dopSI3zd/CEitrZN1rc4i85xWmmXlg==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -2120,7 +2120,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  prettier@3.10.0: {}
+  prettier@3.10.1: {}
 
   quansync@1.0.0: {}
 
