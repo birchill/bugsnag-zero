@@ -53,17 +53,20 @@ function normalizeError(maybeError: unknown, component: string): Error {
     return error;
   }
 
-  switch (typeof error) {
+  switch (typeof maybeError) {
     case 'string':
     case 'number':
     case 'boolean':
-      return new Error(String(maybeError));
+      error = new Error(String(maybeError));
+      error.stack = undefined;
+      return error;
 
     default: {
       error = new Error(
         `${component} received a non-error. See "${component}" tab for more detail.`
       );
       error.name = 'InvalidError';
+      error.stack = undefined;
       return error;
     }
   }
@@ -87,6 +90,7 @@ function fromSimpleError(error: unknown): Error | null {
 
   const newError = new Error(message);
   newError.name = name;
+  newError.stack = undefined;
   return newError;
 }
 
