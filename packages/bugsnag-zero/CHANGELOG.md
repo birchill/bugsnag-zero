@@ -1,5 +1,11 @@
 # @birchill/bugsnag-zero
 
+## 1.0.1
+
+### Patch Changes
+
+- 92e7455: Preserve browser error details and avoid misleading synthetic stack traces.
+
 ## 1.0.0
 
 ### Major Changes

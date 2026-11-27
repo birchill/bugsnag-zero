@@ -32,7 +32,7 @@
     "@types/aws-lambda": "^8.10.162"
   },
   "peerDependencies": {
-    "@birchill/bugsnag-zero": "^1.0.0"
+    "@birchill/bugsnag-zero": "^1.0.1"
   },
   "devDependencies": {
     "@birchill/bugsnag-zero": "workspace:*"
