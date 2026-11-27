@@ -19,6 +19,19 @@ export const browserNotifyUnhandledExceptions: Plugin = {
         }
 
         ({ exceptions, metadata } = toExceptions(error, 'window onerror'));
+        metadata = {
+          ...metadata,
+          'window onerror': {
+            ...metadata?.['window onerror'],
+            message,
+            filename: file,
+            lineno,
+            colno,
+          },
+        };
+        if (exceptions[0].errorClass === 'InvalidError' && message) {
+          exceptions[0].message = message;
+        }
 
         // Augment first stacktrace if we have more info in the ErrorEvent than
         // the stack trace we got.
